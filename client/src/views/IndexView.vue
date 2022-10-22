@@ -68,6 +68,11 @@
   margin-left: 10px;
 }
 
+.signup-button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .login-button {
   margin-right: 10px;
 }
@@ -84,26 +89,17 @@
 </style>
 
 <template>
-  <!--  <div class="home-page">-->
-  <!--    <div class="hero-image">-->
-  <!--      <div class="welcome-text">Open your mind to endless possibilities...</div>-->
-  <!--      <div class="bodystyle">-->
-  <!--        <router-link to="/category/Fantasy">-->
-  <!--          <button class="cta">BUY BOOKS !!</button></router-link-->
-  <!--        >-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
   <div class="index-page">
-    <!--    <div>-->
     <div class="user-input">
       <div class="survey-button user-input-common">
         <router-link to="../survey">Take Survey!!</router-link>
       </div>
+      <div class="signup-button user-input-common">
+        <router-link to="../signup">Sign Up</router-link>
+      </div>
       <div class="login-button user-input-common">
         <router-link to="../login">Login!!</router-link>
       </div>
-      <!--      </div>-->
     </div>
   </div>
 </template>

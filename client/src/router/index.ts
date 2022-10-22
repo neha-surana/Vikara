@@ -4,6 +4,7 @@ import CategoryView from "../views/CategoryView.vue";
 import IndexView from "../views/IndexView.vue";
 import SurveyView from "../views/SurveyView.vue";
 import LoginView from "../views/LoginView.vue";
+import SignupView from "../views/SignupView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -26,6 +27,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "login-view",
     component: LoginView,
+  },
+  {
+    path: "/signup",
+    name: "signup-view",
+    component: SignupView,
   },
 ];
 
