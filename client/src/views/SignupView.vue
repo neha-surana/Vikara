@@ -10,8 +10,8 @@
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 100px);
-  background: #007bff;
-  background: linear-gradient(to right, #0062e6, #33aeff);
+  /*background: #007bff;*/
+  /*background: linear-gradient(to right, #0062e6, #33aeff);*/
 }
 
 .card {
@@ -20,6 +20,7 @@
 }
 
 .card-body {
+  background-color: lightgoldenrodyellow;
   text-align: center;
 }
 
@@ -35,14 +36,6 @@
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;
-}
-
-.card-img-left {
-  width: 45%;
-  /* Link to your background image using in the property below! */
-  background: scroll center
-    url("https://source.unsplash.com/WEQbe2jBg40/414x512");
-  background-size: cover;
 }
 
 .btn-login {
@@ -62,7 +55,6 @@
 }
 
 .card-body form {
-  /*justify-content: space-between;*/
   display: inline-block;
   width: 500px;
 }
@@ -84,13 +76,9 @@
   width: 245px;
 }
 
-.fieldInput input {
+.fieldInput select {
   width: inherit;
 }
-
-/*.form-floating label {*/
-/*  margin-right: 10px;*/
-/*}*/
 </style>
 
 <template>
@@ -235,14 +223,20 @@
           </div>
           <div class="form-floating">
             <div class="fieldLabel">
-              <label for="floatingPasswordConfirm">Security Question</label>
+              <label for="security question">Security Question</label>
             </div>
             <div class="fieldInput">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="security question"
-              />
+              <select id="dropdown">
+                <option value="question">Question 1</option>
+                <option value="question">Question 2</option>
+                <option value="question">Question 3</option>
+                <option value="question">Question 4</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-floating">
+            <div class="fieldInput">
+              <input type="text" class="form-control" placeholder="Answer" />
             </div>
           </div>
 

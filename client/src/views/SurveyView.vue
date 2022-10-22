@@ -2,10 +2,10 @@
 
 <style scoped>
 .survey-page {
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: calc(100vh - 100px);
 }
 
 .survey-fields {
@@ -24,8 +24,9 @@ body {
   font-size: 1.2em;
 }
 
-#outside {
+.outside {
   background-color: lightgoldenrodyellow;
+  text-align: center;
   padding-top: 25px;
   padding-bottom: 25px;
 }
@@ -58,29 +59,23 @@ legend {
   font-weight: 700;
 }
 
-#number {
-  width: 150px;
-}
+/*#number {*/
+/*  width: 150px;*/
+/*}*/
 
-div + div {
-  margin-top: 1em;
-}
+/*div + div {*/
+/*  margin-top: 1em;*/
+/*}*/
 
 input,
 textarea {
-  width: 200px;
+  /*width: 200px;*/
   border: 1px solid #999;
 }
 
 input:focus,
 textarea:focus {
   border-color: OrangeRed;
-}
-
-textarea {
-  vertical-align: top;
-  height: 5em;
-  resize: vertical;
 }
 
 .button {
@@ -102,13 +97,36 @@ button {
   display: flex;
   justify-content: center;
 }
+
+.form-floating {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.fieldLabelSurvey {
+  min-width: 100px;
+  width: 180px;
+  text-align: right;
+  align-self: center;
+}
+
+.fieldInput {
+  min-width: 100px;
+  width: 245px;
+  text-align: left;
+}
+
+/*.fieldInput {*/
+/*  width: inherit;*/
+/*}*/
 </style>
 
 <template>
   <div class="survey-page">
     <div class="survey-fields">
-      <div class="field-container"></div>
-      <div id="outside">
+      <!--      <div class="field-container"></div>-->
+      <div class="outside">
         <form id="survey-form" action="/my-handling-form-page" method="post">
           <h1 id="title">Tell us something about you!!</h1>
           <!--          <p id="description">-->
@@ -120,99 +138,74 @@ button {
             <!-- groups of widgets that share the same purpose, for styling and semantic purposes -->
             <legend>Personal Details</legend>
             <!-- formally describes the purpose of the fieldset it is included inside. -->
-            <div>
-              <label id="name-label" for="age">Age:</label>
-              <input
-                type="text"
-                required
-                id="age"
-                name="age"
-                placeholder="Enter age here"
-              />
+            <div class="form-floating">
+              <div class="fieldLabelSurvey">
+                <label id="name-label" for="age">Age</label>
+              </div>
+              <div class="fieldInput">
+                <input
+                  type="text"
+                  required
+                  id="age"
+                  name="age"
+                  placeholder="Enter age here"
+                />
+              </div>
             </div>
-            <!--            <div>-->
-            <!--              <label for="address-label">Address:</label>-->
-            <!--              <input-->
-            <!--                type="Address"-->
-            <!--                id="address"-->
-            <!--                name="Address"-->
-            <!--                placeholder="Enter address here"-->
-            <!--              />-->
-            <!--            </div>-->
-            <!--            <div>-->
-            <!--              <label id="email-label" for="Email">Email:</label>-->
-            <!--              <input-->
-            <!--                type="email"-->
-            <!--                required-->
-            <!--                id="email"-->
-            <!--                name="user_email"-->
-            <!--                placeholder="Enter email here"-->
-            <!--              />-->
-            <!--            </div>-->
-            <!--            <div>-->
-            <!--              <label id="number-label" for="phone">Phone Number:</label>-->
-            <!--              <input-->
-            <!--                type="number"-->
-            <!--                id="number"-->
-            <!--                name="user_name"-->
-            <!--                placeholder="Enter 10 digit number"-->
-            <!--                min="1"-->
-            <!--                max="9"-->
-            <!--              />-->
-            <!--            </div>-->
-            <!--            <div>-->
-            <!--              <label id="iq-label" for="iq">IQ:</label>-->
-            <!--              <input-->
-            <!--                type="number"-->
-            <!--                id="iq"-->
-            <!--                name="iq"-->
-            <!--                placeholder="Enter IQ here"-->
-            <!--              />-->
-            <!--            </div>-->
-
             <!-- ------------------Radio Buttons-------------------------------- -->
-            <div>
-              <label for="Gender">Gender</label>
-              <p>
+            <div class="form-floating">
+              <div class="fieldLabelSurvey">
+                <label for="Gender">Gender</label>
+              </div>
+
+              <div class="fieldInput">
                 <input type="radio" name="gender" value="male" checked />
                 Male<br />
                 <input type="radio" name="gender" value="female" /> Female<br />
                 <input type="radio" name="gender" value="other" /> Other
-              </p>
+              </div>
             </div>
-            <div>
-              <label for="Remote work">Remote Work</label>
-              <p>
+            <div class="form-floating">
+              <div class="fieldLabelSurvey">
+                <label for="Remote work">Remote Work</label>
+              </div>
+              <div class="fieldInput">
                 <input type="radio" name="workmodel" value="male" checked />
                 Yes<br />
                 <input type="radio" name="workmodel" value="female" /> No<br />
-              </p>
+              </div>
             </div>
-            <div>
-              <label for="Tech Company">Tech Company</label>
-              <p>
+            <div class="form-floating">
+              <div class="fieldLabelSurvey">
+                <label for="Tech Company">Tech Company</label>
+              </div>
+              <div class="fieldInput">
                 <input type="radio" name="company" value="male" checked />
                 Yes<br />
                 <input type="radio" name="company" value="female" /> No<br />
-              </p>
+              </div>
             </div>
             <!--            <label for="date-label">Date of Proposed Outing:</label>-->
-            <div>
-              <label for="Family History">Family History</label>
-              <p>
+            <div class="form-floating">
+              <div class="fieldLabelSurvey">
+                <label for="Family History">Family History</label>
+              </div>
+              <div class="fieldInput">
                 <input type="radio" name="history" value="male" checked />
                 Yes<br />
                 <input type="radio" name="history" value="female" /> No<br />
-              </p>
+              </div>
             </div>
-            <div>
-              <label for="Mental vs Physical">Mental vs Physical</label>
-              <p>
+            <div class="form-floating">
+              <div class="fieldLabelSurvey">
+                <label for="Mental vs Physical">Mental vs Physical</label>
+              </div>
+              <div class="fieldInput">
                 <input type="radio" name="conditionType" value="male" checked />
                 Mental<br />
                 <input type="radio" name="conditionType" value="female" />
                 Physical<br />
-              </p>
+              </div>
             </div>
             <!--            <input type="date" name="bday" />-->
           </fieldset>
