@@ -8,5 +8,5 @@ public interface UserDao {
 
     public List<User> findUserByCategoryId(long categoryId);
 
-//    public List<User> findRandomByCategoryId(long categoryId, int limit);
+    public void createUser(User user);
 }

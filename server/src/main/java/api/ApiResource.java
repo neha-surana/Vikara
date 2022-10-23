@@ -48,19 +48,6 @@ public class ApiResource {
         }
     }
 
-    @POST
-    @Path("post/category/{category-name}")
-    @Consumes(MediaType.TEXT_PLAIN)
-//    @Produces(MediaType.APPLICATION_JSON)
-    public void createCategory(@PathParam("category-name") String categoryName, @Context HttpServletRequest httpsRequest){
-//        System.out.println("Hetlknkjsbkwsnckjsbckjasncx");
-        try{
-            categoryDao.createCategory(categoryName);
-        }catch(Exception e){
-            throw new ApiException(String.format("Category creation failed", categoryName), e);
-        }
-    }
-
 
     @GET
     @Path("user/{user-id}")
@@ -93,20 +80,6 @@ public class ApiResource {
             throw new ApiException(String.format("Books lookup by category-id %d failed", categoryId), e);
         }
     }
-//
-//    // uncomment
-//    @GET
-//    @Path("categories/{category-id}/suggested-books")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<User> suggestedBooks(@PathParam("category-id") long categoryId,
-//                                     @QueryParam("limit") @DefaultValue("3") int limit,
-//                                     @Context HttpServletRequest request) {
-//        try {
-//            return userDao.findRandomByCategoryId(categoryId, limit);
-//        } catch (Exception e) {
-//            throw new ApiException("products lookup via categoryName failed", e);
-//        }
-//    }
 
     // TODO Implement the following APIs
 
@@ -144,20 +117,35 @@ public class ApiResource {
         }
     }
 
-    // categories/name/{category-name}/suggested-books
-//    @GET
-//    @Path("categories/name/{category-name}/suggested-books")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<User> suggestedBooksbyCategoryName(@PathParam("category-name") String categoryName,
-//                                                   @QueryParam("limit") @DefaultValue("3") int limit,
-//                                                   @Context HttpServletRequest request) {
-//        try {
-//            Category category=categoryDao.findByName(categoryName);
-//            if(category==null)throw new ApiException(String.format("No such category with name: "+ categoryName));
-//            return userDao.findRandomByCategoryId(category.getCategoryId(), limit);
-//        } catch (Exception e) {
-//            throw new ApiException("products lookup via categoryName failed", e);
-//        }
-//    }
+    /**
+     * POST REQUESTS HERE
+     * @param categoryName
+     * @param httpsRequest
+     */
+
+    @POST
+    @Path("post/category/{category-name}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void createCategory(@PathParam("category-name") String categoryName, @Context HttpServletRequest httpsRequest){
+        try{
+            categoryDao.createCategory(categoryName);
+        }catch(Exception e){
+            throw new ApiException(String.format("Category creation failed", categoryName), e);
+        }
+    }
+
+    @POST
+    @Path("create/user")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void createUser(@Context HttpServletRequest httpsRequest){
+        try{
+            User user=new User();
+            System.out.println(" in Function call");
+            userDao.createUser(user.initializeUser());
+            System.out.println(" after Function call");
+        }catch(Exception e){
+            throw new ApiException(String.format("User creation failed"), e);
+        }
+    }
 
 }

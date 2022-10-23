@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>Database content</h1>
-<sql:query var="result" dataSource="jdbc/VikaraDB">
+<sql:query var="result" dataSource="jdbc/vikaradb">
     SELECT * FROM user, survey
 <%--    WHERE user.user_id = category.category_id--%>
 </sql:query>

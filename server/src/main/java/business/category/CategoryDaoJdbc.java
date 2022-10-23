@@ -80,14 +80,11 @@ public class CategoryDaoJdbc implements CategoryDao {
 
     @Override
     public void createCategory(String category){
-//        System.out.println("  Function Called  ");
+
         try(Connection connection = JdbcUtils.getConnection();
         PreparedStatement statement=connection.prepareStatement(CREATE_CATEGORY)){
-//            System.out.println("  Inside Try ");
             statement.setString(1,category);
-//            System.out.println("\n\n-----------------------Query--------------"+"\n"+statement.toString()+"\n"+"-------------------\n");
             statement.execute();
-//            System.out.println("  After Query ");
         }catch(Exception e){
             throw new VikaraQueryDbSetupException("Encountered a problem creating a category " + category, e);
         }
