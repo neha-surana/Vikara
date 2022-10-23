@@ -26,6 +26,8 @@ public class CategoryDaoJdbc implements CategoryDao {
                     "FROM category " +
                     "WHERE name = ?";
 
+    private static final String CREATE_CATEGORY="INSERT into category (name) values (?);";
+
     @Override
     public List<Category> findAll() {
         List<Category> categories = new ArrayList<>();
@@ -74,6 +76,21 @@ public class CategoryDaoJdbc implements CategoryDao {
             throw new VikaraQueryDbSetupException("Encountered a problem finding category with name" + name, e);
         }
         return category;
+    }
+
+    @Override
+    public void createCategory(String category){
+//        System.out.println("  Function Called  ");
+        try(Connection connection = JdbcUtils.getConnection();
+        PreparedStatement statement=connection.prepareStatement(CREATE_CATEGORY)){
+//            System.out.println("  Inside Try ");
+            statement.setString(1,category);
+//            System.out.println("\n\n-----------------------Query--------------"+"\n"+statement.toString()+"\n"+"-------------------\n");
+            statement.execute();
+//            System.out.println("  After Query ");
+        }catch(Exception e){
+            throw new VikaraQueryDbSetupException("Encountered a problem creating a category " + category, e);
+        }
     }
 
     private Category readCategory(ResultSet resultSet) throws SQLException {

@@ -48,6 +48,20 @@ public class ApiResource {
         }
     }
 
+    @POST
+    @Path("post/category/{category-name}")
+    @Consumes(MediaType.TEXT_PLAIN)
+//    @Produces(MediaType.APPLICATION_JSON)
+    public void createCategory(@PathParam("category-name") String categoryName, @Context HttpServletRequest httpsRequest){
+//        System.out.println("Hetlknkjsbkwsnckjsbckjasncx");
+        try{
+            categoryDao.createCategory(categoryName);
+        }catch(Exception e){
+            throw new ApiException(String.format("Category creation failed", categoryName), e);
+        }
+    }
+
+
     @GET
     @Path("user/{user-id}")
     @Produces(MediaType.APPLICATION_JSON)

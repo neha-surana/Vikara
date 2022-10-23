@@ -65,20 +65,20 @@
   margin-bottom: 10px;
 }
 
-.fieldLabel {
-  min-width: 100px;
-  width: 180px;
-  text-align: right;
-}
+/*.fieldLabel {*/
+/*  min-width: 100px;*/
+/*  width: 180px;*/
+/*  text-align: right;*/
+/*}*/
 
-.fieldInput {
-  min-width: 100px;
-  width: 245px;
-}
+/*.fieldInput {*/
+/*  min-width: 100px;*/
+/*  width: 245px;*/
+/*}*/
 
-.fieldInput select {
-  width: inherit;
-}
+/*.fieldInput select {*/
+/*  width: inherit;*/
+/*}*/
 </style>
 
 <template>
@@ -141,6 +141,7 @@
             </div>
             <div class="fieldInput">
               <input
+                v-model="password"
                 type="password"
                 class="form-control"
                 id="floatingPasswordConfirm"

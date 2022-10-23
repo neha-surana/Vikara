@@ -10,9 +10,9 @@ import AppFooter from "@/components/AppFooter.vue";
   <div id="app">
     <!--    <Suspense>-->
     <!--      <AppFetchCategories></AppFetchCategories>-->
-    <app-header></app-header>
+    <!--    <app-header></app-header>-->
     <router-view></router-view>
-    <app-footer></app-footer>
+    <!--    <app-footer></app-footer>-->
     <!--    </Suspense>-->
   </div>
 </template>

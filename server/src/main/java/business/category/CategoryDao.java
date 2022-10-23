@@ -9,4 +9,6 @@ public interface CategoryDao {
     public Category findByCategoryId(long categoryId);
 
     public Category findByName(String categoryName);
+
+    public void createCategory(String category);
 }
