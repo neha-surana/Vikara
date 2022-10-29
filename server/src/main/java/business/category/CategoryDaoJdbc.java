@@ -91,9 +91,9 @@ public class CategoryDaoJdbc implements CategoryDao {
     }
 
     private Category readCategory(ResultSet resultSet) throws SQLException {
-        long categoryId = resultSet.getLong("category_id");
+        long category_id = resultSet.getLong("category_id");
         String name = resultSet.getString("name");
-        return new Category(categoryId, name);
+        return new Category(category_id, name);
     }
 
 }

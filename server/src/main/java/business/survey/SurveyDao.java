@@ -6,7 +6,7 @@ public interface SurveyDao {
 
     public List<Survey> findAll();
 
-    public Survey findBySurveyId(long categoryId);
+    public Survey findBySurveyId(long surveyId);
 
-    public Survey findBySurveyName(String categoryName);
+    public void createSurvey(Survey survey);
 }

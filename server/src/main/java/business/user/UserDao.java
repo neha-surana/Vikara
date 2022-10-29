@@ -6,7 +6,9 @@ public interface UserDao {
 
     public User findByUserId(long bookId);
 
-    public List<User> findUserByCategoryId(long categoryId);
-
     public void createUser(User user);
+
+    public User findUserByUserName(String userName);
+
+    public User findUserByUserId(long userId);
 }

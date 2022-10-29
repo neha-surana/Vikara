@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Login</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/vikara.css">
+     <!-- Tweaks for older IEs-->
+<!--    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">-->
+
+</head>
+<body>
+    <div class="header_section">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="logo"><a href="index.html"><img class="logo-img" src="images/vikara-logo.png"></a></div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Helpline</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">LOGIN</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="contact_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="contact_text">Welcome to Vikara</h1>
+                    <div class="mail_sectin">
+                        <input type="text" class="email-bt" id="username" placeholder="User Name" name="UserName">
+
+                        <input type="password" class="email-bt" id="password" placeholder="Password" name="Name">
+                        <div class="send_bt">
+                            <a class="login">Login</a>
+                            <a href="signup.html">Sign Up</a></div>
+                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="loginImg"><img src="images/banner2.jpg"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="copyright_section">
+    <div class="container">
+        <div class="social_icon">
+            <ul>
+                <li><a href="#"><img src="images/fb-icon.png"></a></li>
+                <li><a href="#"><img src="images/twitter-icon.png"></a></li>
+                <li><a href="#"><img src="images/instagram-icon.png"></a></li>
+                <li><a href="#"><img src="images/linkedin-icon.png"></a></li>
+            </ul>
+        </div>
+        <p class="copyright_text">2022 All Rights Reserved. Vikara</a></p>
+    </div>
+</div>
+</body>
+
+<script>
+    const login = document.querySelector('.login');
+    login.addEventListener('click', handleLogin);
+
+
+    async function handleLogin(event) {
+        var usernameInput = document.getElementById('username').value.trim();
+
+        var passInput = document.getElementById('password').value.trim();
+        // var emailFormat = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+
+        // if(!emailInput.match(emailFormat)) {
+        //     alert("Please enter a valid email!");
+        // }else
+        if(usernameInput ==''){
+            alert("Username field can not be empty!");
+        }else if(passInput ==''){
+            alert("Password field can not be empty!");
+        }else{
+            const response= await getUser();
+            console.log("Before json parse");
+            const user=JSON.parse(response);
+            console.log("After json parse");
+            console.log(user.password);
+            if(user.password==passInput){
+                alert("Login Successful");
+               // window.location.replace("http://localhost:8080/VikaraSetup/survey.html");
+            }else alert("Invalid username or password");
+        }
+    }
+
+   async function getUser(){
+        const response = await fetch("http://localhost:8080/VikaraSetup/api/user/username/"+document.getElementById('username').value.trim()).then((response) => response.json());
+        console.log(response);
+        return response;
+    }
+</script>
+</html>

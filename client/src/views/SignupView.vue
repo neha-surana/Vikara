@@ -1,4 +1,46 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+async function handleFormSubmit(event) {
+  console.log("hi");
+  event.preventDefault();
+
+  const data = new FormData(event.target);
+
+  const formJSON = Object.fromEntries(data.entries());
+  console.log({ formJSON });
+  const response = await fetch(
+    "http://localhost:8080/VikaraSetup/api/create/user",
+    {
+      mode: "cors",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: `{
+    "username":"temp11",
+    "password":"temp11",
+    "confirmPassword":"temp11",
+    "firstName":"temp1",
+    "middleName":"temp1",
+    "lastName":"temp1",
+    "address1":"temp1",
+    "address2":"temp1",
+    "city":"temp1",
+    "state":"temp1",
+    "zipcode":"12365",
+    "category_id":1001
+    }`,
+    }
+  );
+  console.log(response);
+  response.json().then((data) => {
+    console.log(data);
+  });
+}
+console.log("HEREEEEEEEEEEEE");
+const form = document.querySelector("form");
+form.addEventListener("submit", handleFormSubmit);
+</script>
 
 <style scoped>
 /*$primary*/

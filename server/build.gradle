@@ -34,6 +34,11 @@ dependencies {
     implementation group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.28'
     implementation group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.28'
 
+    //JSON
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.1'
+
+
     // JAX-B dependencies for JDK 9+
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 

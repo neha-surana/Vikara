@@ -1,6 +1,7 @@
 package api;
 
 import business.ApplicationContext;
+import business.survey.Survey;
 import business.survey.SurveyDao;
 import business.user.User;
 import business.user.UserDao;
@@ -8,10 +9,18 @@ import business.category.Category;
 import business.category.CategoryDao;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
+
+import com.google.gson.Gson;
+
 
 @ApplicationPath("/")
 @Path("/")
@@ -65,21 +74,21 @@ public class ApiResource {
         }
     }
 
-    @GET
-    @Path("categories/{category-id}/user")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<User> booksByCategoryId(@PathParam("category-id") long categoryId,
-                                        @Context HttpServletRequest httpRequest) {
-        try {
-            Category category = categoryDao.findByCategoryId(categoryId);
-            if (category == null) {
-                throw new ApiException(String.format("No such category id: %d", categoryId));
-            }
-            return userDao.findUserByCategoryId(category.getCategoryId());
-        } catch (Exception e) {
-            throw new ApiException(String.format("Books lookup by category-id %d failed", categoryId), e);
-        }
-    }
+//    @GET
+//    @Path("categories/{category-id}/user")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<User> booksByCategoryId(@PathParam("category-id") long categoryId,
+//                                        @Context HttpServletRequest httpRequest) {
+//        try {
+//            Category category = categoryDao.findByCategoryId(categoryId);
+//            if (category == null) {
+//                throw new ApiException(String.format("No such category id: %d", categoryId));
+//            }
+//            return userDao.findUserByUserId(category.getCategoryId());
+//        } catch (Exception e) {
+//            throw new ApiException(String.format("Books lookup by category-id %d failed", categoryId), e);
+//        }
+//    }
 
     // TODO Implement the following APIs
 
@@ -99,21 +108,37 @@ public class ApiResource {
         }
     }
 
+//
+//    // categories/name/{category-name}/books
+//    @GET
+//    @Path("categories/name/{category-name}/books")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<User> booksByCategoryName(@PathParam("category-name") String categoryName,
+//                                          @Context HttpServletRequest httpRequest) {
+//        try {
+//            Category category = categoryDao.findByName(categoryName);
+//            if (category == null) {
+//                throw new ApiException(String.format("No such category with name: "+ categoryName));
+//            }
+//            return userDao.findUserByUserId(category.getCategoryId());
+//        } catch (Exception e) {
+//            throw new ApiException(String.format("Books lookup by category-name "+categoryName+ " failed"), e);
+//        }
+//    }
 
-    // categories/name/{category-name}/books
     @GET
-    @Path("categories/name/{category-name}/books")
+    @Path("user/username/{user-name}/")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<User> booksByCategoryName(@PathParam("category-name") String categoryName,
+    public User userByUserName(@PathParam("user-name") String username,
                                           @Context HttpServletRequest httpRequest) {
         try {
-            Category category = categoryDao.findByName(categoryName);
-            if (category == null) {
-                throw new ApiException(String.format("No such category with name: "+ categoryName));
+            User user = userDao.findUserByUserName(username);
+            if (user == null) {
+                throw new ApiException(String.format("No such user with username: "+ username));
             }
-            return userDao.findUserByCategoryId(category.getCategoryId());
+            return user;
         } catch (Exception e) {
-            throw new ApiException(String.format("Books lookup by category-name "+categoryName+ " failed"), e);
+            throw new ApiException(String.format("User lookup by user-name "+username+ " failed"), e);
         }
     }
 
@@ -134,18 +159,77 @@ public class ApiResource {
         }
     }
 
+    //localhost:8080/Vikara/api/create/user
+
     @POST
     @Path("create/user")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createUser(@Context HttpServletRequest httpsRequest){
+    public void createUser(@Context HttpServletRequest httpsRequest, @Context HttpServletResponse httpServletResponse)throws IOException {
+        String body=getRequestBody(httpsRequest);
+
+        System.out.println(body);
+        Gson g = new Gson();
+        User user = g.fromJson(body, User.class);
+
+        System.out.println(user);
         try{
-            User user=new User();
-            System.out.println(" in Function call");
-            userDao.createUser(user.initializeUser());
+            userDao.createUser(user);
             System.out.println(" after Function call");
-        }catch(Exception e){
+        } catch(Exception e){
             throw new ApiException(String.format("User creation failed"), e);
         }
+        httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+        httpServletResponse.getWriter().write("{\"Hi-there\":\"\"}");
+        httpServletResponse.getWriter().flush();
     }
 
+
+    @POST
+    @Path("create/survey")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void createSurvey(@Context HttpServletRequest httpsRequest, @Context HttpServletResponse httpServletResponse)throws IOException {
+        String body=getRequestBody(httpsRequest);
+        Gson g = new Gson();
+        System.out.println(body);
+        Survey survey = g.fromJson(body, Survey.class);
+
+        System.out.println(survey);
+        try{
+            surveyDao.createSurvey(survey);
+            System.out.println(" after Function call");
+        } catch(Exception e){
+            throw new ApiException(String.format("Survey creation failed"), e);
+        }
+        httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+        httpServletResponse.getWriter().write("{\"Hi-there\":\"\"}");
+        httpServletResponse.getWriter().flush();
+    }
+
+
+    private String getRequestBody(HttpServletRequest httpsRequest){
+        String body = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = null;
+
+        try {
+            InputStream inputStream = httpsRequest.getInputStream();
+            if (inputStream != null) {
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                char[] charBuffer = new char[128];
+                int bytesRead = -1;
+                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
+                    stringBuilder.append(charBuffer, 0, bytesRead);
+                }
+            } else {
+                stringBuilder.append("");
+            }
+            bufferedReader.close();
+        } catch (Exception ex) {
+            System.out.print(ex);
+        }
+
+        body = stringBuilder.toString();
+        return body;
+    }
 }
+

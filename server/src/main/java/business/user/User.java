@@ -1,6 +1,8 @@
 package business.user;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
 	/*
 	 * TODO: Create private fields corresponding to the fields in the
@@ -8,62 +10,36 @@ public class User {
 	 * uses those fields. Generate getter methods for those fields,
 	 * and generate a toString method that uses those fields.
 	 */
-
-	private long userId;
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"userId=" + userId +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				", confirmPassword='" + confirmPassword + '\'' +
-				", firstName='" + firstName + '\'' +
-				", middleName='" + middleName + '\'' +
-				", lastName='" + lastName + '\'' +
-				", address1='" + address1 + '\'' +
-				", address2='" + address2 + '\'' +
-				", city='" + city + '\'' +
-				", state='" + state + '\'' +
-				", zipcode='" + zipcode + '\'' +
-				'}';
-	}
-
+	private long user_id;
 	private String username;
+	private String email;
 	private String password;
-	private String confirmPassword;
-	private String firstName;
-	private String middleName;
-	private String lastName;
-	private String address1;
-	private String address2;
-	private String city;
+	private String confirm_password;
+	private String address;
+	private String country;
 	private String state;
 	private String zipcode;
-	private long category_id;
 
-	public User(long userId, String username, String password, String confirmPassword, String firstName, String middleName, String lastName, String address1, String address2, String city, String state, String zipcode,long categoryId) {
-		this.userId = userId;
+	public User(){}
+
+	public User(long user_id, String username, String email, String password, String confirm_password, String address, String country, String state, String zipcode) {
+		this.user_id = user_id;
+		this.email=email;
 		this.username = username;
 		this.password = password;
-		this.confirmPassword = confirmPassword;
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.lastName = lastName;
-		this.address1 = address1;
-		this.address2 = address2;
-		this.city = city;
+		this.confirm_password = confirm_password;
+		this.address = address;
+		this.country = country;
 		this.state = state;
 		this.zipcode = zipcode;
-		this.category_id=categoryId;
 	}
 
 	public long getUserId() {
-		return userId;
+		return user_id;
 	}
 
 	public void setUserId(long userId) {
-		this.userId = userId;
+		this.user_id = userId;
 	}
 
 	public String getUsername() {
@@ -72,6 +48,14 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -83,59 +67,27 @@ public class User {
 	}
 
 	public String getConfirmPassword() {
-		return confirmPassword;
+		return confirm_password;
 	}
 
 	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
+		this.confirm_password = confirmPassword;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public String getMiddleName() {
-		return middleName;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getAddress1() {
-		return address1;
-	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
-
-	public String getAddress2() {
-		return address2;
-	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public String getState() {
@@ -155,32 +107,18 @@ public class User {
 	}
 
 
-	public long getCategory_id() {
-		return category_id;
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId=" + user_id +
+				", username='" + username + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", confirmPassword='" + confirm_password + '\'' +
+				", address='" + address + '\'' +
+				", country='" + country + '\'' +
+				", state='" + state + '\'' +
+				", zipcode='" + zipcode + '\'' +
+				'}';
 	}
-
-	public void setCategory_id(long category_id) {
-		this.category_id = category_id;
-	}
-
-	public User(){}
-
-	public User initializeUser(){
-		User user=new User();
-		user.setUsername("jane");
-		user.setPassword("password");
-		user.setConfirmPassword("password");
-		user.setFirstName("Jane");
-		user.setMiddleName("M");
-		user.setLastName("Doe");
-		user.setAddress1("123 main St");
-		user.setAddress2(" APT K");
-		user.setCity("LA");
-		user.setState("Cali");
-		user.setZipcode("12345");
-		user.setCategory_id(1002);
-		return user;
-	}
-
-
 }

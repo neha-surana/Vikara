@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content=
+          "width=device-width, initial-scale=1.0">
+  <title>
+    Build a Survey Form using HTML and CSS
+  </title>
+  <style>
+    /* Styling the Body element i.e. Color,
+    Font, Alignment */
+    body {
+      background-color: #05c46b;
+      background-image: url(../resources/survey.jpg);
+      font-family: Verdana;
+      text-align: center;
+    }
+
+    /* Styling the Form (Color, Padding, Shadow) */
+    form {
+      background-color: #fff;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px 20px;
+      box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Styling form-control Class */
+    .form-control {
+      text-align: left;
+      margin-bottom: 25px;
+    }
+
+    /* Styling form-control Label */
+    .form-control label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* Styling form-control input,
+    select, textarea */
+    .form-control input,
+    .form-control select,
+    .form-control textarea {
+      border: 1px solid #777;
+      border-radius: 2px;
+      font-family: inherit;
+      padding: 10px;
+      display: block;
+      width: 95%;
+    }
+
+    /* Styling form-control Radio
+    button and Checkbox */
+    .form-control input[type="radio"],
+    .form-control input[type="checkbox"] {
+      display: inline-block;
+      width: auto;
+    }
+
+    /* Styling Button */
+    button {
+      background-color: darkorange;
+      border: 1px solid #777;
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 25px;
+      font-weight: bold;
+      display: block;
+      width: 100%;
+      margin-top: 50px;
+      margin-bottom: 20px;
+    }
+  </style>
+  <!--    <link rel="stylesheet" type="text/css" href="css/survey.css">-->
+</head>
+
+<body>
+<h1>Mood Survey</h1>
+
+<!-- Create Form -->
+<form id="form">
+
+  <!-- Details -->
+  <div class="form-control">
+    <label for="gender" id="label-gender">
+      Gender
+    </label>
+
+    <!-- Input Type Text -->
+    <input type="text"
+           id="gender"
+           name="gender"
+           placeholder="Enter your gender" />
+  </div>
+
+  <div class="form-control">
+    <label for="country" id="label-country">
+      Country
+    </label>
+
+    <!-- Input Type Email-->
+    <input type="text"
+           id="country"
+           name="country"
+           placeholder="Enter your Country" />
+  </div>
+
+  <div class="form-control">
+    <label for="state" id="label-state">
+      State
+    </label>
+
+    <!-- Input Type Text -->
+    <input type="text"
+           id="state"
+           name="state"
+           placeholder="Enter your state" />
+  </div>
+
+  <div class="form-control">
+    <label>
+      Are you self-employed?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="self-employed-1">
+      <input type="radio"
+             id="self-employed-1"
+             name="self_employed" value="true">Yes</input>
+    </label>
+    <label for="self-employed-2">
+      <input type="radio"
+             id="self-employed-2"
+             name="self_employed" value="false">No</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Do you have a family history of mental illness?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="family_history-1">
+      <input type="radio"
+             id="family_history-1"
+             name="family_history" value="Yes">Yes</input>
+    </label>
+    <label for="family_history-2">
+      <input type="radio"
+             id="family_history-2"
+             name="family_history" value="No">No</input>
+    </label>
+    <label for="family_history-3">
+      <input type="radio"
+             id="family_history-3"
+             name="family_history" value="Maybe">Maybe</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      How many employees does your company or organization have?
+    </label>
+
+    <select name="no_employees" id="no_employees">
+      <option value=0>1-5</option>
+      <option value=1>6-25</option>
+      <option value=2>26-100</option>
+      <option value=3>100-500</option>
+      <option value=4>500-1000</option>
+      <option value=5>More than 1000</option>
+    </select>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Do you work remotely (outside of an office) at least 50% of the time?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="remote_work-1">
+      <input type="radio"
+             id="remote_work-1"
+             name="remote_work" value="Yes">Yes</input>
+    </label>
+    <label for="remote_work-2">
+      <input type="radio"
+             id="remote_work-2"
+             name="remote_work" value="No">No</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Is your employer primarily a tech company/organization?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="tech_company-1">
+      <input type="radio"
+             id="tech_company-1"
+             name="tech_company" value="Yes">Yes</input>
+    </label>
+    <label for="tech_company-2">
+      <input type="radio"
+             id="tech_company-2"
+             name="tech_company" value="No">No</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Do you know the options for mental health care your employer provides?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="care_options-1">
+      <input type="radio"
+             id="care_options-1"
+             name="care_options" value="Yes">Yes</input>
+    </label>
+    <label for="care_options-2">
+      <input type="radio"
+             id="care_options-2"
+             name="care_options" value="No">No</input>
+    </label>
+    <label for="care_options-3">
+      <input type="radio"
+             id="care_options-3"
+             name="care_options" value="Maybe">Maybe</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Has your employer ever discussed mental health as part of an employee wellness program?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="wellness_program-1">
+      <input type="radio"
+             id="wellness_program-1"
+             name="wellness_program" value="Yes">Yes</input>
+    </label>
+    <label for="wellness_program-2">
+      <input type="radio"
+             id="wellness_program-2"
+             name="wellness_program" value="no">No</input>
+    </label>
+    <label for="wellness_program-3">
+      <input type="radio"
+             id="wellness_program-3"
+             name="wellness_program" value="Maybe">Maybe</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Does your employer provide resources to learn more about mental health issues and how to seek help?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="seek_help-1">
+      <input type="radio"
+             id="seek_help-1"
+             name="seek_help" value="Yes">Yes</input>
+    </label>
+    <label for="seek_help-2">
+      <input type="radio"
+             id="seek_help-2"
+             name="seek_help" value="No">No</input>
+    </label>
+    <label for="seek_help-3">
+      <input type="radio"
+             id="seek_help-3"
+             name="seek_help" value="Maybe">Maybe</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      How easy is it for you to take medical leave for a mental health condition?
+    </label>
+
+    <select name="leave_difficulty" id="leave">
+      <option value=0>Don't know</option>
+      <option value=1>Somewhat difficult</option>
+      <option value=2>Somewhat easy</option>
+      <option value=3>Very difficult</option>
+      <option value=4>Very easy</option>
+    </select>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Do you think that discussing a mental health issue with your employer would have negative consequences?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="mental_health_consequence-1">
+      <input type="radio"
+             id="mental_health_consequence-1"
+             name="mental_health_consequence" value="Yes">Yes</input>
+    </label>
+    <label for="mental_health_consequence-2">
+      <input type="radio"
+             id="mental_health_consequence-2"
+             name="mental_health_consequence" value="No">No</input>
+    </label>
+    <label for="mental_health_consequence-3">
+      <input type="radio"
+             id="mental_health_consequence-3"
+             name="mental_health_consequence" value="Maybe">Maybe</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Do you think that discussing a physical health issue with your employer would have negative consequences?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="phys_health_consequence-1">
+      <input type="radio"
+             id="phys_health_consequence-1"
+             name="physical_health_consequence" value="Yes">Yes</input>
+    </label>
+    <label for="phys_health_consequence-2">
+      <input type="radio"
+             id="phys_health_consequence-2"
+             name="physical_health_consequence" value="No">No</input>
+    </label>
+    <label for="phys_health_consequence-3">
+      <input type="radio"
+             id="phys_health_consequence-3"
+             name="physical_health_consequence" value="Maybe">Maybe</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Would you be willing to discuss a mental health issue with your coworkers?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="coworkers-1">
+      <input type="radio"
+             id="coworkers-1"
+             name="coworker" value="Yes">Yes</input>
+    </label>
+    <label for="coworkers-2">
+      <input type="radio"
+             id="coworkers-2"
+             name="coworker" value="No">No</input>
+    </label>
+    <label for="coworkers-3">
+      <input type="radio"
+             id="coworkers-3"
+             name="coworker" value="Some of them">Some of them</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Would you be willing to discuss a mental health issue with your direct supervisor(s)?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="supervisor-1">
+      <input type="radio"
+             id="supervisor-1"
+             name="supervisor" value="Yes">Yes</input>
+    </label>
+    <label for="supervisor-2">
+      <input type="radio"
+             id="supervisor-2"
+             name="supervisor" value="No">No</input>
+    </label>
+    <label for="supervisor-3">
+      <input type="radio"
+             id="supervisor-3"
+             name="supervisor" value="Some of them">Some of them</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Do you feel that your employer takes mental health as seriously as physical health?
+    </label>
+
+    <!-- Input Type Radio Button -->
+    <label for="mental_vs_physical-1">
+      <input type="radio"
+             id="mental_vs_physical-1"
+             name="mental_vs_physical" value="Yes">Yes</input>
+    </label>
+    <label for="mental_vs_physical-2">
+      <input type="radio"
+             id="mental_vs_physical-2"
+             name="mental_vs_physical" value="No">No</input>
+    </label>
+    <label for="mental_vs_physical-3">
+      <input type="radio"
+             id="mental_vs_physical-3"
+             name="mental_vs_physical" value="Don't know">Don't know</input>
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>
+      Age
+    </label>
+
+    <select name="age_range" id="age_range">
+      <option value="0-20">0-20</option>
+      <option value="21-30">21-30</option>
+      <option value="31-40">31-40</option>
+      <option value="41-50">41-50</option>
+      <option value="51-70">51-70</option>
+      <option value="71-100">71-100</option>
+    </select>
+  </div>
+
+  <!-- Multi-line Text Input Control -->
+  <button type="submit" value="submit">
+    Submit
+  </button>
+</form>
+</body>
+
+<script>
+  async function handleFormSubmit(event) {
+    console.log("hi")
+    event.preventDefault();
+
+    const data = new FormData(event.target);
+
+    const formJSON = Object.fromEntries(data.entries());
+    console.log("Printing form values");
+    console.log({formJSON});
+    console.log(JSON.stringify(formJSON));
+    const response = await fetch("http://localhost:8080/VikaraSetup/api/create/survey", {
+      mode: 'cors',
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify(formJSON),
+    });
+    console.log(response);
+    if(response.ok){
+      sessionStorage.setItem('user','abcd');
+      //location.href="http://localhost:8080/VikaraSetup/" ;
+    }
+    else console.log("There is some error in the field");
+
+    response.json().then(data => {
+      console.log(data);
+    });
+
+  }
+  console.log("HEREEEEEEEEEEEE")
+  const form = document.querySelector('form#form');
+  form.addEventListener('submit', handleFormSubmit);
+</script>
+
+</html>

@@ -15,8 +15,8 @@
   fill: #010101;
 }
 
-@import "../cssvikara/bootstrap.min.css";
-@import "../cssvikara/style.css";
+/*@import "../cssvikara/bootstrap.min.css";*/
+/*@import "../cssvikara/style.css";*/
 
 html,
 body {

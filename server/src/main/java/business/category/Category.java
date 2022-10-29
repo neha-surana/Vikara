@@ -3,16 +3,16 @@ package business.category;
 
 public class Category {
 
-    private long categoryId;
+    private long category_id;
     private String name;
 
-    public Category(long categoryId, String name) {
-        this.categoryId = categoryId;
+    public Category(long category_id, String name) {
+        this.category_id = category_id;
         this.name = name;
     }
 
     public long getCategoryId() {
-        return categoryId;
+        return category_id;
     }
 
     public String getName() {
@@ -22,7 +22,7 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "categoryId=" + categoryId +
+                "categoryId=" + category_id +
                 ", name='" + name + '\'' +
                 '}';
     }
