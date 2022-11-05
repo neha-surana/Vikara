@@ -1,28 +1,28 @@
 package business;
 
-import business.VikaraDbSetupException.VikaraConnectionDbSetupException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import business.VikarastoreDbException.VikarastoreConnectionDbException;
 
 public class JdbcUtils {
 
-    private static final String JDBC_BOOKSTORE = "jdbc/vikaradb";
+
+    private static final String JDBC_VIKARASTORE = "jdbc/vikaradb";
 
     private static DataSource dataSource;
 
     public static Connection getConnection() {
         if (dataSource == null) {
-            dataSource = getDataSource(JDBC_BOOKSTORE);
+            dataSource = getDataSource(JDBC_VIKARASTORE);
         }
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
-            throw new VikaraConnectionDbSetupException("Encountered a SQL issue getting a connection", e);
+            throw new VikarastoreConnectionDbException("Encountered a SQL issue getting a connection", e);
         }
     }
 

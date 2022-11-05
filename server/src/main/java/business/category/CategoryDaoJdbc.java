@@ -1,6 +1,6 @@
 package business.category;
 
-import business.VikaraDbSetupException.VikaraQueryDbSetupException;
+import business.BookstoreDbException.BookstoreQueryDbException;
 import business.JdbcUtils;
 
 import java.sql.Connection;
@@ -26,8 +26,6 @@ public class CategoryDaoJdbc implements CategoryDao {
                     "FROM category " +
                     "WHERE name = ?";
 
-    private static final String CREATE_CATEGORY="INSERT into category (name) values (?);";
-
     @Override
     public List<Category> findAll() {
         List<Category> categories = new ArrayList<>();
@@ -39,7 +37,7 @@ public class CategoryDaoJdbc implements CategoryDao {
                 categories.add(category);
             }
         } catch (SQLException e) {
-            throw new VikaraQueryDbSetupException("Encountered a problem finding all categories", e);
+            throw new BookstoreQueryDbException("Encountered a problem finding all categories", e);
         }
         return categories;
     }
@@ -56,7 +54,7 @@ public class CategoryDaoJdbc implements CategoryDao {
                 }
             }
         } catch (SQLException e) {
-            throw new VikaraQueryDbSetupException("Encountered a problem finding category " + categoryId, e);
+            throw new BookstoreQueryDbException("Encountered a problem finding category " + categoryId, e);
         }
         return category;
     }
@@ -73,27 +71,18 @@ public class CategoryDaoJdbc implements CategoryDao {
                 }
             }
         } catch (SQLException e) {
-            throw new VikaraQueryDbSetupException("Encountered a problem finding category with name" + name, e);
+            throw new BookstoreQueryDbException("Encountered a problem finding category " + name, e);
         }
+
+        // TODO: Finish implementing this method
+
         return category;
     }
 
-    @Override
-    public void createCategory(String category){
-
-        try(Connection connection = JdbcUtils.getConnection();
-        PreparedStatement statement=connection.prepareStatement(CREATE_CATEGORY)){
-            statement.setString(1,category);
-            statement.execute();
-        }catch(Exception e){
-            throw new VikaraQueryDbSetupException("Encountered a problem creating a category " + category, e);
-        }
-    }
-
     private Category readCategory(ResultSet resultSet) throws SQLException {
-        long category_id = resultSet.getLong("category_id");
+        long categoryId = resultSet.getLong("category_id");
         String name = resultSet.getString("name");
-        return new Category(category_id, name);
+        return new Category(categoryId, name);
     }
 
 }

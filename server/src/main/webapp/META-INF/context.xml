@@ -6,8 +6,8 @@
               maxTotal="4"
               maxIdle="0"
               maxWaitMillis="10000"
-              username="hetveera"
-              password="2343"
+              username="root"
+              password="CSD@mysql-1872"
               driverClassName="com.mysql.cj.jdbc.Driver"
               removeAbandonedOnBorrow="true"
               removeAbandonedOnMaintenance="true"
@@ -15,5 +15,5 @@
               logAbandoned="true"
               minEvictableIdleTimeMillis="300000"
               timeBetweenEvictionRunsMillis="300000"
-              url="jdbc:mysql://localhost:3306/VikaraDB"/>
+              url="jdbc:mysql://localhost:3306/vikaradb"/>
 </Context>

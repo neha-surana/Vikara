@@ -10,8 +10,9 @@
 <body>
 <h1>Database content</h1>
 <sql:query var="result" dataSource="jdbc/vikaradb">
-    SELECT * FROM user, survey
-<%--    WHERE user.user_id = category.category_id--%>
+    SELECT * FROM shop
+<%--    , itemcategory--%>
+<%--    WHERE itemCategory.itemCategory_id = shop.itemCategory_id--%>
 </sql:query>
 <table border="1">
     <!-- column headers -->

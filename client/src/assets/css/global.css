@@ -154,10 +154,12 @@ input,
 optgroup,
 select,
 textarea {
-    /* color: inherit; */
-    background-color: inherit;
-    font: inherit;
-    margin: 0;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    resize: vertical;
+    background-color: white;
 }
 
 /* section{

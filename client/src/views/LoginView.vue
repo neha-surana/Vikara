@@ -1,23 +1,63 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// const login = document.querySelector(".login");
+// login.addEventListener("click", handleLogin);
+//
+// async function handleLogin(event) {
+//   var usernameInput = document.getElementById("username").value.trim();
+//
+//   var passInput = document.getElementById("password").value.trim();
+//
+//   if (usernameInput == "") {
+//     alert("Username field can not be empty!");
+//   } else if (await !doesUsernameAlreadyExist()) {
+//     alert("no such user exists! Try signing up first");
+//   } else if (passInput == "") {
+//     alert("Password field can not be empty!");
+//   } else {
+//     try {
+//       console.log("INVOKING CREATE USER");
+//       const response = await getUser();
+//       console.log(response.password);
+//       if (response.password == passInput) {
+//         alert("Login Successful");
+//         window.location.replace(
+//           "http://localhost:8080/VikaraSetup/survey.html"
+//         );
+//       } else alert("Invalid username or password");
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   }
+// }
+//
+// async function doesUsernameAlreadyExist() {
+//   console.log("Inside check username!!\n");
+//   console.log(
+//     "http://localhost:8080/VikaraSetup/api/check/user/" +
+//       document.getElementById("username").value.trim()
+//   );
+//   const response = await fetch(
+//     "http://localhost:8080/VikaraSetup/api/check/user/" +
+//       document.getElementById("username").value.trim()
+//   ).then((response) => response.json());
+//   console.log("After check function call!!\n");
+//   console.log("JSON string: " + JSON.stringify(response));
+//   console.log(response);
+//   return response.exitsts;
+// }
+//
+// async function getUser() {
+//   const response = await fetch(
+//     "http://localhost:8080/VikaraSetup/api/user/username/" +
+//       document.getElementById("username").value.trim()
+//   ).then((response) => response.json());
+//   console.log("JSON string: " + JSON.stringify(response));
+//   console.log(response);
+//   return response;
+// }
+</script>
 
 <style scoped>
-/*$primary*/
-/*hexcode:  #b69de6*/
-/*rgb: rgb(182,157,230);*/
-
-.st01 {
-  fill: #fff;
-}
-.st0 {
-  fill: none;
-}
-.st1 {
-  fill: #010101;
-}
-
-/*@import "../cssvikara/bootstrap.min.css";*/
-/*@import "../cssvikara/style.css";*/
-
 html,
 body {
   height: 100vh;
@@ -41,474 +81,47 @@ label {
   font-weight: 400;
 }
 
-/*form {*/
-/*  padding: 40px 30px;*/
-/*  background: #fefefe;*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  align-items: flex-start;*/
-/*  padding-bottom: 20px;*/
-/*  width: 300px;*/
-/*  h4 {*/
-/*    margin-bottom: 20px;*/
-/*    !*color: rgba(#000, 0.5);*!*/
-/*    color: black;*/
-/*    span {*/
-/*      color: black;*/
-/*      !*color: rgba(#000, 1);*!*/
-/*      font-weight: 700;*/
-/*    }*/
-/*  }*/
-/*  p {*/
-/*    line-height: 155%;*/
-/*    margin-bottom: 5px;*/
-/*    font-size: 14px;*/
-/*    color: #000;*/
-/*    opacity: 0.65;*/
-/*    font-weight: 400;*/
-/*    max-width: 200px;*/
-/*    margin-bottom: 40px;*/
-/*  }*/
-/*}*/
-
-.log-in {
-  padding: 40px 30px;
-  background: #fefefe;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-bottom: 20px;
+.login-Image {
+  height: 350px;
   width: 300px;
-}
-
-.log-in h4 {
-  margin-bottom: 20px;
-  /*color: rgba(#000, 0.5);*/
-  color: black;
-}
-
-.log-in span {
-  color: black;
-  /*color: rgba(#000, 1);*/
-  font-weight: 700;
-}
-
-.log-in p {
-  line-height: 155%;
-  margin-bottom: 5px;
-  font-size: 14px;
-  color: #000;
-  opacity: 0.65;
-  font-weight: 400;
-  max-width: 200px;
-  margin-bottom: 40px;
-}
-
-/*a.discrete {*/
-/*  color: rgba(#000, 0.4);*/
-/*  font-size: 14px;*/
-/*  border-bottom: solid 1px rgba(#000, 0);*/
-/*  padding-bottom: 4px;*/
-/*  margin-left: auto;*/
-/*  font-weight: 300;*/
-/*  transition: all 0.3s ease;*/
-/*  margin-top: 40px;*/
-/*  !*&:hover {*!*/
-/*  !*  border-bottom: solid 1px rgba(#000, 0.2);*!*/
-/*  !*}*!*/
-/*}*/
-
-.discrete {
-  color: black;
-  font-size: 14px;
-  border-bottom: solid 1px black;
-  padding-bottom: 4px;
-  margin-left: auto;
-  font-weight: 300;
-  transition: all 0.3s ease;
-  margin-top: 40px;
-}
-
-.discrete:hover {
-  border-bottom: solid 1px black;
-}
-
-/*button {*/
-/*  -webkit-appearance: none;*/
-/*  width: auto;*/
-/*  min-width: 100px;*/
-/*  border-radius: 24px;*/
-/*  text-align: center;*/
-/*  padding: 15px 40px;*/
-/*  margin-top: 5px;*/
-/*  background-color: saturate(#b69de6, 30%);*/
-/*  color: #fff;*/
-/*  font-size: 14px;*/
-/*  margin-left: auto;*/
-/*  font-weight: 500;*/
-/*  box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, 0.13);*/
-/*  border: none;*/
-/*  transition: all 0.3s ease;*/
-/*  outline: 0;*/
-/*  &:hover {*/
-/*    transform: translateY(-3px);*/
-/*    box-shadow: 0 2px 6px -1px rgba($primary, 0.65);*/
-/*    &:active {*/
-/*      transform: scale(0.99);*/
-/*    }*/
-/*  }*/
-/*}*/
-
-button {
-  -webkit-appearance: none;
-  width: auto;
-  min-width: 100px;
-  border-radius: 24px;
-  text-align: center;
-  padding: 15px 40px;
-  margin-top: 5px;
-  background-color: darkseagreen;
-  color: #fff;
-  font-size: 14px;
-  margin-left: auto;
-  font-weight: 500;
-  box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, 0.13);
-  border: none;
-  transition: all 0.3s ease;
-  outline: 0;
-}
-
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 2px 6px -1px rgba(182, 157, 230, 0.65);
-}
-
-button:active {
-  transform: scale(0.99);
-}
-
-/*input {*/
-/*  font-size: 16px;*/
-/*  padding: 20px 0px;*/
-/*  height: 56px;*/
-/*  border: none;*/
-/*  border-bottom: solid 1px rgba(0, 0, 0, 0.1);*/
-/*  background: #fff;*/
-/*  width: 280px;*/
-/*  box-sizing: border-box;*/
-/*  transition: all 0.3s linear;*/
-/*  color: #000;*/
-/*  font-weight: 400;*/
-/*  -webkit-appearance: none;*/
-/*  &:focus {*/
-/*    border-bottom: solid 1px $primary;*/
-/*    outline: 0;*/
-/*    box-shadow: 0 2px 6px -8px rgba($primary, 0.45);*/
-/*  }*/
-/*}*/
-
-input {
-  font-size: 16px;
-  padding: 20px 0px;
-  height: 56px;
-  border: none;
-  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
-  background: #fff;
-  width: 280px;
-  box-sizing: border-box;
-  transition: all 0.3s linear;
-  color: #000;
-  font-weight: 400;
-  -webkit-appearance: none;
-}
-
-input:focus {
-  border-bottom: solid 1px #b69de6;
-  outline: 0;
-  box-shadow: 0 2px 6px -8px rgba(182, 157, 230, 0.45);
-}
-
-.floating-label {
-  position: relative;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.floating-label label {
-  position: absolute;
-  top: calc(50% - 7px);
-  left: 0;
-  opacity: 0;
-  transition: all 0.3s ease;
-  padding-left: 44px;
-}
-
-.floating-label input {
-  width: calc(100% - 44px);
-  margin-left: auto;
-  display: flex;
-}
-
-.floating-label .icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 56px;
-  width: 44px;
-  display: flex;
-}
-
-.icon svg {
-  height: 30px;
-  width: 30px;
-  margin: auto;
-  opacity: 0.15;
-  transition: all 0.3s ease;
-}
-
-.icon svg path {
-  transition: all 0.3s ease;
-}
-
-.floating-label input:not(:placeholder-shown) {
-  padding: 28px 0px 12px 0px;
-}
-
-.floating-label input:not(:placeholder-shown) + label {
-  transform: translateY(-10px);
-  opacity: 0.7;
-}
-
-.floating-label input:valid:not(:placeholder-shown) + label + .icon svg {
-  opacity: 1;
-}
-
-.floating-label input:valid:not(:placeholder-shown) + label + .icon svg path {
-  fill: #b69de6;
-}
-
-.floating-label input:not(:valid):not(:focus) + label + .icon {
-  animation-name: shake-shake;
-  animation-duration: 0.3s;
-}
-
-/*.floating-label {*/
-/*  position: relative;*/
-/*  margin-bottom: 10px;*/
-/*  width: 100%;*/
-/*  label {*/
-/*    position: absolute;*/
-/*    top: calc(50% - 7px);*/
-/*    left: 0;*/
-/*    opacity: 0;*/
-/*    transition: all 0.3s ease;*/
-/*    padding-left: 44px;*/
-/*  }*/
-/*  input {*/
-/*    width: calc(100% - 44px);*/
-/*    margin-left: auto;*/
-/*    display: flex;*/
-/*  }*/
-/*  .icon {*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    height: 56px;*/
-/*    width: 44px;*/
-/*    display: flex;*/
-/*    svg {*/
-/*      height: 30px;*/
-/*      width: 30px;*/
-/*      margin: auto;*/
-/*      opacity: 0.15;*/
-/*      transition: all 0.3s ease;*/
-/*      path {*/
-/*        transition: all 0.3s ease;*/
-/*      }*/
-/*    }*/
-/*  }*/
-/*  input:not(:placeholder-shown) {*/
-/*    padding: 28px 0px 12px 0px;*/
-/*  }*/
-/*  input:not(:placeholder-shown) + label {*/
-/*    transform: translateY(-10px);*/
-/*    opacity: 0.7;*/
-/*  }*/
-/*  input:valid:not(:placeholder-shown) + label + .icon {*/
-/*    svg {*/
-/*      opacity: 1;*/
-/*      path {*/
-/*        fill: $primary;*/
-/*      }*/
-/*    }*/
-/*  }*/
-/*  input:not(:valid):not(:focus) + label + .icon {*/
-/*    animation-name: shake-shake;*/
-/*    animation-duration: 0.3s;*/
-/*  }*/
-/*}*/
-/*$displacement: 3px;*/
-@keyframes shake-shake {
-  0% {
-    transform: translateX(-3px);
-  }
-  20% {
-    transform: translateX(-3px);
-  }
-  40% {
-    transform: translateX(-3px);
-  }
-  60% {
-    transform: translateX(-3px);
-  }
-  80% {
-    transform: translateX(-3px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
-}
-.session {
-  display: flex;
-  flex-direction: row;
-  width: auto;
-  height: auto;
-  min-height: calc(100% - 100px);
-  margin: auto auto;
-  background: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, 0.12);
-}
-.left {
-  width: 220px;
-  height: auto;
-  min-height: 100%;
-  position: relative;
-  background-image: url("https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-  background-size: cover;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-
-.input svg {
-  height: 40px;
-  width: auto;
-  margin: 20px;
+  margin-left: 30px;
+  margin-top: 90px;
 }
 </style>
 
 <template>
-  <!--  <div class="session">-->
-  <!--    <div class="left">-->
-  <!--      <svg-->
-  <!--        enable-background="new 0 0 300 302.5"-->
-  <!--        version="1.1"-->
-  <!--        viewBox="0 0 300 302.5"-->
-  <!--        xml:space="preserve"-->
-  <!--        xmlns="http://www.w3.org/2000/svg"-->
-  <!--      >-->
-  <!--        <path-->
-  <!--          class="st01"-->
-  <!--          d="m126 302.2c-2.3 0.7-5.7 0.2-7.7-1.2l-105-71.6c-2-1.3-3.7-4.4-3.9-6.7l-9.4-126.7c-0.2-2.4 1.1-5.6 2.8-7.2l93.2-86.4c1.7-1.6 5.1-2.6 7.4-2.3l125.6 18.9c2.3 0.4 5.2 2.3 6.4 4.4l63.5 110.1c1.2 2 1.4 5.5 0.6 7.7l-46.4 118.3c-0.9 2.2-3.4 4.6-5.7 5.3l-121.4 37.4zm63.4-102.7c2.3-0.7 4.8-3.1 5.7-5.3l19.9-50.8c0.9-2.2 0.6-5.7-0.6-7.7l-27.3-47.3c-1.2-2-4.1-4-6.4-4.4l-53.9-8c-2.3-0.4-5.7 0.7-7.4 2.3l-40 37.1c-1.7 1.6-3 4.9-2.8 7.2l4.1 54.4c0.2 2.4 1.9 5.4 3.9 6.7l45.1 30.8c2 1.3 5.4 1.9 7.7 1.2l52-16.2z"-->
-  <!--        />-->
-  <!--      </svg>-->
-  <!--    </div>-->
-  <!--    <form action="" class="log-in" autocomplete="off">-->
-  <!--      <h4>We are <span>VIKARA</span></h4>-->
-  <!--      <p>Welcome back! Log in to your account to view today's clients:</p>-->
-  <!--      <div class="floating-label">-->
-  <!--        <input-->
-  <!--          placeholder="Email"-->
-  <!--          type="email"-->
-  <!--          name="email"-->
-  <!--          id="email"-->
-  <!--          autocomplete="off"-->
-  <!--        />-->
-  <!--        <label for="email">Email:</label>-->
-  <!--        <div class="icon">-->
-  <!--          <svg-->
-  <!--            enable-background="new 0 0 100 100"-->
-  <!--            version="1.1"-->
-  <!--            viewBox="0 0 100 100"-->
-  <!--            xml:space="preserve"-->
-  <!--            xmlns="http://www.w3.org/2000/svg"-->
-  <!--          >-->
-  <!--            <g transform="translate(0 -952.36)">-->
-  <!--              <path-->
-  <!--                d="m17.5 977c-1.3 0-2.4 1.1-2.4 2.4v45.9c0 1.3 1.1 2.4 2.4 2.4h64.9c1.3 0 2.4-1.1 2.4-2.4v-45.9c0-1.3-1.1-2.4-2.4-2.4h-64.9zm2.4 4.8h60.2v1.2l-30.1 22-30.1-22v-1.2zm0 7l28.7 21c0.8 0.6 2 0.6 2.8 0l28.7-21v34.1h-60.2v-34.1z"-->
-  <!--              />-->
-  <!--            </g>-->
-  <!--            <rect class="st0" width="100" height="100" />-->
-  <!--          </svg>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--      <div class="floating-label">-->
-  <!--        <input-->
-  <!--          placeholder="Password"-->
-  <!--          type="password"-->
-  <!--          name="password"-->
-  <!--          id="password"-->
-  <!--          autocomplete="off"-->
-  <!--        />-->
-  <!--        <label for="password">Password:</label>-->
-  <!--        <div class="icon">-->
-  <!--          <svg-->
-  <!--            enable-background="new 0 0 24 24"-->
-  <!--            version="1.1"-->
-  <!--            viewBox="0 0 24 24"-->
-  <!--            xml:space="preserve"-->
-  <!--            xmlns="http://www.w3.org/2000/svg"-->
-  <!--          >-->
-  <!--            <rect class="st0" width="24" height="24" />-->
-  <!--            <path class="st1" d="M19,21H5V9h14V21z M6,20h12V10H6V20z" />-->
-  <!--            <path-->
-  <!--              class="st1"-->
-  <!--              d="M16.5,10h-1V7c0-1.9-1.6-3.5-3.5-3.5S8.5,5.1,8.5,7v3h-1V7c0-2.5,2-4.5,4.5-4.5s4.5,2,4.5,4.5V10z"-->
-  <!--            />-->
-  <!--            <path-->
-  <!--              class="st1"-->
-  <!--              d="m12 16.5c-0.8 0-1.5-0.7-1.5-1.5s0.7-1.5 1.5-1.5 1.5 0.7 1.5 1.5-0.7 1.5-1.5 1.5zm0-2c-0.3 0-0.5 0.2-0.5 0.5s0.2 0.5 0.5 0.5 0.5-0.2 0.5-0.5-0.2-0.5-0.5-0.5z"-->
-  <!--            />-->
-  <!--          </svg>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--      <button type="submit" onClick="return false;">Log in</button>-->
-  <!--      <a-->
-  <!--        href="https://codepen.io/elujambio/pen/yjwzGP"-->
-  <!--        class="discrete"-->
-  <!--        target="_blank"-->
-  <!--        >Basic version</a-->
-  <!--      >-->
-  <!--    </form>-->
-  <!--  </div>-->
-
   <div class="contact_section layout_padding">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
           <h1 class="contact_text">Welcome to Vikara</h1>
-          <div class="mail_sectin">
+          <div class="login-section">
             <input
               type="text"
-              class="email-bt"
+              class="input-button"
+              id="username"
               placeholder="User Name"
               name="UserName"
             />
 
             <input
-              type="text"
-              class="email-bt"
-              placeholder="Phone Number"
+              type="password"
+              class="input-button"
+              id="password"
+              placeholder="Password"
               name="Name"
             />
-            <div class="send_bt">
-              <a href="#">Login</a> <a href="#">Sign Up</a>
+            <div class="submit-row">
+              <router-link to="/signup">
+                <button class="sign-up" type="submit">Signup</button>
+              </router-link>
+              <button class="sign-in">Login</button>
             </div>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="loginImg">
-            <img src="@/assets/images/site/banner2.jpg" />
+          <div class="login-Image">
+            <img src="../assets/images/vikara/login-image.jpg" />
           </div>
         </div>
       </div>

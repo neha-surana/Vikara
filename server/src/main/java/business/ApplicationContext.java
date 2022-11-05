@@ -1,38 +1,41 @@
 
 package business;
 
-import business.survey.SurveyDao;
-import business.survey.SurveyDaoJdbc;
-import business.user.UserDao;
-import business.user.UserDaoJdbc;
+import business.book.BookDao;
+import business.book.BookDaoJdbc;
 import business.category.CategoryDao;
 import business.category.CategoryDaoJdbc;
+import business.shop.ShopDao;
+import business.shop.ShopDaoJdbc;
+import business.itemCategory.ItemCategoryDao;
+import business.itemCategory.ItemCategoryDaoJdbc;
 
 public class ApplicationContext {
 
     // TODO Add field and complete the getter for bookDao
 
     private CategoryDao categoryDao;
-    private UserDao userDao;
+    private ItemCategoryDao itemCategoryDao;
 
+    private BookDao bookDao;
+    private ShopDao shopDao;
 
-    private SurveyDao surveyDao;
     public static ApplicationContext INSTANCE = new ApplicationContext();
 
     private ApplicationContext() {
         categoryDao = new CategoryDaoJdbc();
-        userDao =new UserDaoJdbc();
-        surveyDao =new SurveyDaoJdbc();
+        itemCategoryDao=new ItemCategoryDaoJdbc();
+        bookDao = new BookDaoJdbc();
+        shopDao=new ShopDaoJdbc();
     }
 
     public CategoryDao getCategoryDao() {
         return categoryDao;
     }
-
-
-    public SurveyDao getSurveyDao() {
-        return surveyDao;
+    public ItemCategoryDao getItemCategoryDao() {
+        return itemCategoryDao;
     }
 
-    public UserDao getBookDao() { return userDao; }
+    public BookDao getBookDao() { return bookDao; }
+    public ShopDao getShopDao() { return shopDao; }
 }

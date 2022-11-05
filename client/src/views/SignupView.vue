@@ -1,324 +1,207 @@
-<script setup lang="ts">
-async function handleFormSubmit(event) {
-  console.log("hi");
-  event.preventDefault();
-
-  const data = new FormData(event.target);
-
-  const formJSON = Object.fromEntries(data.entries());
-  console.log({ formJSON });
-  const response = await fetch(
-    "http://localhost:8080/VikaraSetup/api/create/user",
-    {
-      mode: "cors",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+<script>
+import router from "../router";
+export default {
+  name: "SurveyView",
+  data() {
+    return {
+      posts: {
+        gender: "1",
+        country: "1",
       },
-      body: `{
-    "username":"temp11",
-    "password":"temp11",
-    "confirmPassword":"temp11",
-    "firstName":"temp1",
-    "middleName":"temp1",
-    "lastName":"temp1",
-    "address1":"temp1",
-    "address2":"temp1",
-    "city":"temp1",
-    "state":"temp1",
-    "zipcode":"12365",
-    "category_id":1001
-    }`,
-    }
+    };
+  },
+  methods: {
+    async handleFormSubmit(event) {
+      let usernameInput = document
+        .getElementById("floatingInputUsername")
+        .value.trim();
+      let useremailInput = document
+        .getElementById("floatingInputEmail")
+        .value.trim();
+      let passInput = document.getElementById("floatingPassword").value.trim();
+      console.log("password: " + passInput);
+      var confirmPassInput = document
+        .getElementById("floatingPasswordConfirm")
+        .value.trim();
+      console.log("confirm password: " + confirmPassInput);
+      var address = document.getElementById("address").value.trim();
+      var state = document.getElementById("state").value.trim();
+      var country = document.getElementById("country").value.trim();
+      var zipcode = document.getElementById("zipcode").value.trim();
+      var emailFormat = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+      var passwordFormat = "^(.{0,7}|[^0-9]|[^A-Z]|[^a-z]|[a-zA-Z0-9])$";
+
+      event.preventDefault();
+      if (usernameInput == "") {
+        alert("Username field can not be empty!");
+      } else if (await doesUsernameAlreadyExist()) {
+        alert(
+          "Username " +
+            usernameInput +
+            " already exists!! Please enter another username."
+        );
+      } else if (useremailInput == "") {
+        alert("Email field can not be empty!");
+      } else if (!useremailInput.match(emailFormat)) {
+        alert("Please enter a valid email!");
+      } else if (passInput == "") {
+        alert("Password field can not be empty!");
+      } else if (!passInput.match(passwordFormat)) {
+        alert(
+          "Password field must contain atleast 1 letter, 1 number and minimum 8 characters!! "
+        );
+      } else if (passInput != confirmPassInput) {
+        alert("Confirm Password field must match Password field!!");
+      } else if (address == "") {
+        alert("Address field can not be empty!");
+      } else if (state == "") {
+        alert("State field can not be empty!");
+      } else if (country == "") {
+        alert("Country field can not be empty!");
+      } else if (zipcode == "") {
+        alert("Zipcode field can not be empty!");
+      } else {
+        const data = new FormData(event.target);
+
+        const formJSON = Object.fromEntries(data.entries());
+        console.log("Printing form values");
+        console.log({ formJSON });
+        console.log(JSON.stringify(formJSON));
+
+        console.log("INVOKING CREATE USER");
+
+        const response = await fetch(
+          "http://localhost:8080/VikaraSetup/api/create/user",
+          {
+            mode: "cors",
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formJSON),
+          }
+        );
+        console.log(response);
+        if (response.ok) {
+          sessionStorage.setItem("user", "abcd");
+          router.push("/login");
+        } else console.log("There is some error in the field");
+
+        response.json().then((data) => {
+          console.log(data);
+        });
+      }
+    },
+  },
+};
+
+async function doesUsernameAlreadyExist() {
+  console.log("IN FUNCTION");
+  console.log(
+    "http://localhost:8080/VikaraSetup/api/check/user/" +
+      document.getElementById("floatingInputUsername").value.trim()
   );
+
+  const response = await fetch(
+    "http://localhost:8080/VikaraSetup/api/check/user/" +
+      document.getElementById("floatingInputUsername").value.trim()
+  ).then((response) => response.json());
+  console.log("JSON string: " + JSON.stringify(response));
   console.log(response);
-  response.json().then((data) => {
-    console.log(data);
-  });
+  return response.exitsts;
 }
-console.log("HEREEEEEEEEEEEE");
-const form = document.querySelector("form");
-form.addEventListener("submit", handleFormSubmit);
 </script>
 
-<style scoped>
-/*$primary*/
-/*hexcode:  #b69de6*/
-/*rgb: rgb(182,157,230);*/
-
-.body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 100px);
-  /*background: #007bff;*/
-  /*background: linear-gradient(to right, #0062e6, #33aeff);*/
-}
-
-.card {
-  align-content: center;
-  justify-content: center;
-}
-
-.card-body {
-  background-color: lightgoldenrodyellow;
-  text-align: center;
-}
-
-.card-body h1 {
-  margin-bottom: 10px;
-}
-
-.row {
-  margin-top: 10px;
-  min-width: 300px;
-  width: 800px;
-  background-color: white;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.btn-login {
-  font-size: 0.9rem;
-  letter-spacing: 0.05rem;
-  padding: 0.75rem 1rem;
-}
-
-.btn-google {
-  color: white !important;
-  background-color: #ea4335;
-}
-
-.btn-facebook {
-  color: white !important;
-  background-color: #3b5998;
-}
-
-.card-body form {
-  display: inline-block;
-  width: 500px;
-}
-
-.form-floating {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-/*.fieldLabel {*/
-/*  min-width: 100px;*/
-/*  width: 180px;*/
-/*  text-align: right;*/
-/*}*/
-
-/*.fieldInput {*/
-/*  min-width: 100px;*/
-/*  width: 245px;*/
-/*}*/
-
-/*.fieldInput select {*/
-/*  width: inherit;*/
-/*}*/
-</style>
+<style scoped></style>
 
 <template>
-  <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
-  <div class="body">
-    <!--    <div>-->
-    <div class="row">
-      <div class="card-body">
-        <h1 class="card-title text-center">Register</h1>
-        <form>
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingInputUsername">Username</label>
-            </div>
-            <div class="fieldInput">
+  <div class="contact_section layout_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1 class="contact_text">Welcome to Vikara</h1>
+          <form id="signup" @submit="handleFormSubmit" method="post">
+            <div class="mail_sectin">
               <input
                 type="text"
-                class="form-control"
+                class="input-button"
+                name="username"
                 id="floatingInputUsername"
-                placeholder="username"
+                placeholder="UserName"
                 required
                 autofocus
               />
-            </div>
-          </div>
-
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingInputEmail">Email address</label>
-            </div>
-            <div class="field">
               <input
                 type="email"
-                class="form-control"
+                class="input-button"
+                placeholder="Email Address"
+                name="email"
                 id="floatingInputEmail"
-                placeholder="name@example.com"
+                required
+                autofocus
               />
-            </div>
-          </div>
-
-          <hr />
-
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingPassword">Password</label>
-            </div>
-            <div class="fieldInput">
               <input
                 type="password"
-                class="form-control"
+                class="input-button"
+                name="password"
                 id="floatingPassword"
                 placeholder="Password"
+                required
+                autofocus
               />
-            </div>
-          </div>
-
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingPasswordConfirm">Confirm Password</label>
-            </div>
-            <div class="fieldInput">
               <input
-                v-model="password"
                 type="password"
-                class="form-control"
+                class="input-button"
+                name="confirm_password"
                 id="floatingPasswordConfirm"
                 placeholder="Confirm Password"
+                required
+                autofocus
               />
-            </div>
-          </div>
-
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingPasswordConfirm">First Name</label>
-            </div>
-            <div class="fieldInput">
               <input
                 type="text"
-                class="form-control"
-                placeholder="First Name"
+                class="input-button"
+                name="address"
+                id="address"
+                placeholder="Address"
               />
-            </div>
-          </div>
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingPasswordConfirm">Middle Name</label>
-            </div>
-            <div class="fieldInput">
               <input
                 type="text"
-                class="form-control"
-                placeholder="Middle Name"
+                class="input-button"
+                name="state"
+                id="state"
+                placeholder="State"
               />
+              <input
+                type="text"
+                class="input-button"
+                name="country"
+                id="country"
+                placeholder="Country"
+              />
+              <input
+                type="text"
+                class="input-button"
+                name="zipcode"
+                id="zipcode"
+                placeholder="Zipcode"
+              />
+              <div class="submit-row">
+                <router-link to="/login">
+                  <button class="sign-in">Back to Login</button>
+                </router-link>
+                <button class="sign-up" type="submit">Signup</button>
+              </div>
             </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <div class="loginImg">
+            <img src="../assets/images/vikara/side_login.jpg" />
           </div>
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingPasswordConfirm">Last Name</label>
-            </div>
-            <div class="fieldInput">
-              <input type="text" class="form-control" placeholder="Last Name" />
-            </div>
-          </div>
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingPasswordConfirm">Address 1</label>
-            </div>
-            <div class="fieldInput">
-              <input type="text" class="form-control" placeholder="Address 1" />
-            </div>
-          </div>
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingPasswordConfirm">Address 2</label>
-            </div>
-            <div class="fieldInput">
-              <input type="text" class="form-control" placeholder="Address 2" />
-            </div>
-          </div>
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingPasswordConfirm">City</label>
-            </div>
-            <div class="fieldInput">
-              <input type="text" class="form-control" placeholder="City" />
-            </div>
-          </div>
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingPasswordConfirm">State</label>
-            </div>
-            <div class="fieldInput">
-              <input type="text" class="form-control" placeholder="State" />
-            </div>
-          </div>
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="floatingPasswordConfirm">ZipCode</label>
-            </div>
-            <div class="fieldInput">
-              <input type="text" class="form-control" placeholder="ZipCode" />
-            </div>
-          </div>
-          <div class="form-floating">
-            <div class="fieldLabel">
-              <label for="security question">Security Question</label>
-            </div>
-            <div class="fieldInput">
-              <select id="dropdown">
-                <option value="question">Question 1</option>
-                <option value="question">Question 2</option>
-                <option value="question">Question 3</option>
-                <option value="question">Question 4</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-floating">
-            <div class="fieldInput">
-              <input type="text" class="form-control" placeholder="Answer" />
-            </div>
-          </div>
-
-          <div class="d-grid mb-2">
-            <button
-              class="btn btn-lg btn-primary btn-login fw-bold text-uppercase"
-              type="submit"
-            >
-              Register
-            </button>
-          </div>
-
-          <a class="d-block text-center mt-2 small" href="#"
-            >Have an account? Sign In</a
-          >
-
-          <hr class="my-4" />
-
-          <div class="d-grid mb-2">
-            <button
-              class="btn btn-lg btn-google btn-login fw-bold text-uppercase"
-              type="submit"
-            >
-              <i class="fab fa-google me-2"></i> Sign up with Google
-            </button>
-          </div>
-
-          <div class="d-grid">
-            <button
-              class="btn btn-lg btn-facebook btn-login fw-bold text-uppercase"
-              type="submit"
-            >
-              <i class="fab fa-facebook-f me-2"></i> Sign up with Facebook
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
-  <!--  </div>-->
-  <!--  </div>-->
 </template>

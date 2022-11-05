@@ -1,35 +1,35 @@
 <script setup lang="ts">
-import { provide } from "vue";
-import { BookItem } from "@/types";
-import CategoryFetchBooks from "../components/CategoryFetchBooks.vue";
-import CategoryBookList from "@/components/CategoryBookList.vue";
-import CategoryBox from "@/components/CategoryBox.vue";
+import { watch } from "vue";
+import CategoryNav from "@/components/CategoryNav.vue";
+import CategoryProductList from "@/components/CategoryProductList.vue";
+import { useRoute } from "vue-router";
+import { useItemStore } from "@/stores/ItemStore";
+const route = useRoute();
+const itemStore = useItemStore();
+
+watch(
+  () => route.params.name,
+  (newName) => {
+    itemStore.fetchItems(newName as string);
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped>
-.hero-image-category {
+.itemCategory-page {
   display: flex;
-  justify-content: space-between;
+  min-height: calc(100vh - 300px);
   width: 100%;
-  min-height: calc(100vh - 100px);
-  background-image: url("../assets/images/site/hero-image.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  padding: 50px;
+  background-image: url("@/assets/images/hero2.jpg");
+  padding: 20px;
+  gap: 20px;
 }
 </style>
 
 <template>
-  <div class="category-page">
-    <div class="hero-image-category">
-      <section>
-        <category-box></category-box>
-      </section>
-      <section class="category-book-list">
-        <category-fetch-books></category-fetch-books>
-      </section>
-    </div>
+  <div class="itemCategory-page">
+    <CategoryNav></CategoryNav>
+    <CategoryProductList> </CategoryProductList>
   </div>
 </template>

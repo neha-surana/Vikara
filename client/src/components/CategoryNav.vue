@@ -1,44 +1,58 @@
-<!--<script setup lang="ts">-->
-<!--import { inject } from "vue";-->
-<!--const categoryList = inject("categoryList");-->
-<!--import { useRoute } from "vue-router";-->
-<!--const route = useRoute();-->
-<!--</script>-->
+<script setup lang="ts">
+import { useRoute } from "vue-router";
+const route = useRoute();
+import { useCategoryStore } from "@/stores/CategoryStore";
+const categoryStore = useCategoryStore();
+</script>
 
-<!--<style scoped>-->
-<!--.category-buttons {-->
-<!--  display: flex;-->
-<!--  flex-direction: row;-->
-<!--  text-align: center;-->
-<!--  background-color: var(&#45;&#45;neutral-color);-->
-<!--}-->
+<style scoped>
+.itemCategory-buttons {
+  width: 230px;
+  background: rgba(255, 255, 255, 0.8);
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  text-align: start;
+}
 
-<!--.button.selected-category-button {-->
-<!--  background-color: var(&#45;&#45;primary-color);-->
-<!--}-->
+.itemCategory-buttons a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 35px;
+  color: #022643;
+  display: block;
+  width: 100%;
+}
 
-<!--.button.unselected-category-button,-->
-<!--.button.unselected-category-button:visited {-->
-<!--  background-color: var(&#45;&#45;neutral-color);-->
-<!--}-->
+.selected-itemCategory-button {
+  border: 5px solid maroon;
+  color: maroon !important;
+}
 
-<!--.button.unselected-category-button:hover,-->
-<!--.button.unselected-category-button:active {-->
-<!--  background-color: var(&#45;&#45;primary-color);-->
-<!--}-->
-<!--</style>-->
+.unselected-itemCategory-button:hover {
+  color: chocolate;
+}
+</style>
 
-<!--<template>-->
-<!--  <nav class="category-nav">-->
-<!--    <ul class="category-buttons">-->
-<!--      <li v-for="category in categoryList" :key="category.categoryId">-->
-<!--        <router-link-->
-<!--          :to="'../category/' + category.name"-->
-<!--          class="button unselected-category-button"-->
-<!--        >-->
-<!--          {{ category.name }}-->
-<!--        </router-link>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </nav>-->
-<!--</template>-->
+<template>
+  <div class="itemCategory-buttons">
+    <ul style="width: 100%">
+      <li
+        v-for="itemCategory in categoryStore.categoryList"
+        :key="itemCategory.itemCategory_id"
+      >
+        <router-link
+          :to="'../itemCategory/' + itemCategory.name"
+          class="itemCategory-button"
+          :class="[
+            itemCategory.name.toLowerCase() === route.params.name.toLowerCase()
+              ? 'selected-itemCategory-button'
+              : 'unselected-itemCategory-button',
+          ]"
+        >
+          {{ itemCategory.name }}
+        </router-link>
+      </li>
+    </ul>
+  </div>
+</template>

@@ -1,358 +1,630 @@
-<script></script>
+<script>
+import router from "../router";
+export default {
+  name: "SurveyView",
+  data() {
+    return {
+      posts: {
+        gender: "1",
+        country: "1",
+      },
+    };
+  },
+  methods: {
+    async handleFormSubmit(e) {
+      try {
+        console.log("hi");
+        e.preventDefault();
+
+        const data = new FormData(e.target);
+
+        const formJSON = Object.fromEntries(data.entries());
+        console.log({ formJSON });
+        //
+        // const requestOptions = {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify(formJSON),
+        // };
+        // console.log(requestOptions);
+        const response = await fetch("http://127.0.0.1:5000/predict", {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(formJSON),
+        });
+        console.log("Response = " + JSON.stringify(response.detected));
+        console.log("After fetch");
+
+        response.json().then((data) => {
+          // console.log(data.detected);
+          // console.log(data);
+
+          if (data.detected === "1") {
+            router.push("/audiotext");
+          } else router.push("/recommendation");
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+};
+</script>
 
 <style scoped>
-.survey-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 100px);
-}
-
-.survey-fields {
-  align-self: center;
-  margin: 10px;
-  width: 800px;
-  min-width: 600px;
-}
-
-.field-container {
-  display: flex;
-  justify-content: space-between;
-}
-body {
-  font-family: "Anaheim";
-  font-size: 1.2em;
-}
-
-.outside {
-  background-color: lightgoldenrodyellow;
+.mood-survey {
+  background-image: url("../assets/images/vikara/survey.jpg");
+  font-family: Verdana;
+  margin-top: 150px;
   text-align: center;
-  padding-top: 25px;
-  padding-bottom: 25px;
 }
 
-h1 {
-  font-size: 1.5em;
-  text-align: center;
-  text-transform: capitalize;
-}
-
+/* Styling the Form (Color, Padding, Shadow) */
 form {
-  /* Just to center the form on the page */
-  margin: 0 auto;
-  width: 70%;
-  /* To see the limits of the form */
-  padding: 1em;
-  border: 1px solid #ccc;
-  border-radius: 1em;
-}
-#survey-form {
-  background-color: white;
+  background-color: #fff;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 30px 20px;
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-fieldset {
-  border: 1px solid lightgray;
-  margin: 10px;
+/* Styling form-control Class */
+.form-control {
+  text-align: left;
+  margin-bottom: 15px;
 }
 
-legend {
-  font-weight: 700;
-}
-
-/*#number {*/
-/*  width: 150px;*/
-/*}*/
-
-/*div + div {*/
-/*  margin-top: 1em;*/
-/*}*/
-
-input,
-textarea {
-  /*width: 200px;*/
-  border: 1px solid #999;
-}
-
-input:focus,
-textarea:focus {
-  border-color: OrangeRed;
-}
-
-.button {
-  padding-left: 90px;
-}
-
-button {
-  margin: 0.5em;
-  font-size: 1em;
-  text-transform: capitalize;
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 5px;
-  border-radius: 2px;
-}
-
-#submitbutton {
-  display: flex;
-  justify-content: center;
-}
-
-.form-floating {
-  display: flex;
-  justify-content: space-between;
+/* Styling form-control Label */
+.form-control label {
+  display: block;
   margin-bottom: 10px;
 }
 
-.fieldLabelSurvey {
-  min-width: 100px;
-  width: 180px;
-  text-align: right;
-  align-self: center;
+/* Styling form-control input,
+select, textarea */
+.form-control input,
+.form-control select {
+  border: 1px solid #777;
+  border-radius: 2px;
+  font-family: inherit;
+  padding: 10px;
+  display: block;
+  width: 95%;
 }
 
-.fieldInput {
-  min-width: 100px;
-  width: 245px;
-  text-align: left;
+.form-control textarea {
+  border: 1px solid #777;
+  border-radius: 2px;
+  font-family: inherit;
+  padding: 10px;
+  display: block;
+  width: 95%;
+  height: 300px;
 }
 
-/*.fieldInput {*/
-/*  width: inherit;*/
-/*}*/
+/* Styling form-control Radio
+button and Checkbox */
+.form-control input[type="radio"],
+.form-control input[type="checkbox"] {
+  display: inline-block;
+  width: auto;
+}
 </style>
 
 <template>
-  <div class="survey-page">
-    <div class="survey-fields">
-      <!--      <div class="field-container"></div>-->
-      <div class="outside">
-        <form id="survey-form" action="/my-handling-form-page" method="post">
-          <h1 id="title">Tell us something about you!!</h1>
-          <!--          <p id="description">-->
-          <!--            <b>Note:</b> Form is to be completed at least 21 days prior to date-->
-          <!--          </p>-->
+  <!--  <div>-->
+  <div class="mood-survey">
+    <h1>Mood Survey</h1>
+    <form
+      id="form"
+      ref="form"
+      class="survey"
+      @submit="handleFormSubmit"
+      method="post"
+    >
+      <!-- Details -->
+      <div class="form-control">
+        <label id="label-gender"> Gender </label>
 
-          <!-- ------------------Personal Details---------------------------- -->
-          <fieldset>
-            <!-- groups of widgets that share the same purpose, for styling and semantic purposes -->
-            <legend>Personal Details</legend>
-            <!-- formally describes the purpose of the fieldset it is included inside. -->
-            <div class="form-floating">
-              <div class="fieldLabelSurvey">
-                <label id="name-label" for="age">Age</label>
-              </div>
-              <div class="fieldInput">
-                <input
-                  type="text"
-                  required
-                  id="age"
-                  name="age"
-                  placeholder="Enter age here"
-                />
-              </div>
-            </div>
-            <!-- ------------------Radio Buttons-------------------------------- -->
-            <div class="form-floating">
-              <div class="fieldLabelSurvey">
-                <label for="Gender">Gender</label>
-              </div>
-
-              <div class="fieldInput">
-                <input type="radio" name="gender" value="male" checked />
-                Male<br />
-                <input type="radio" name="gender" value="female" /> Female<br />
-                <input type="radio" name="gender" value="other" /> Other
-              </div>
-            </div>
-            <div class="form-floating">
-              <div class="fieldLabelSurvey">
-                <label for="Remote work">Remote Work</label>
-              </div>
-              <div class="fieldInput">
-                <input type="radio" name="workmodel" value="male" checked />
-                Yes<br />
-                <input type="radio" name="workmodel" value="female" /> No<br />
-              </div>
-            </div>
-            <div class="form-floating">
-              <div class="fieldLabelSurvey">
-                <label for="Tech Company">Tech Company</label>
-              </div>
-              <div class="fieldInput">
-                <input type="radio" name="company" value="male" checked />
-                Yes<br />
-                <input type="radio" name="company" value="female" /> No<br />
-              </div>
-            </div>
-            <!--            <label for="date-label">Date of Proposed Outing:</label>-->
-            <div class="form-floating">
-              <div class="fieldLabelSurvey">
-                <label for="Family History">Family History</label>
-              </div>
-              <div class="fieldInput">
-                <input type="radio" name="history" value="male" checked />
-                Yes<br />
-                <input type="radio" name="history" value="female" /> No<br />
-              </div>
-            </div>
-            <div class="form-floating">
-              <div class="fieldLabelSurvey">
-                <label for="Mental vs Physical">Mental vs Physical</label>
-              </div>
-              <div class="fieldInput">
-                <input type="radio" name="conditionType" value="male" checked />
-                Mental<br />
-                <input type="radio" name="conditionType" value="female" />
-                Physical<br />
-              </div>
-            </div>
-            <!--            <input type="date" name="bday" />-->
-          </fieldset>
-          <!-- ------------------Checkboxes-------------------------------- -->
-          <fieldset>
-            <!--            <label for="Gender">Check All That Apply</label>-->
-            <!--            <p>-->
-            <!--              <input type="checkbox" name="tattoo" value="tattoo" /> I have-->
-            <!--              tattoos and/or piercings<br />-->
-            <!--              <input type="checkbox" name="age" value="Car" /> I am more than 2-->
-            <!--              years older than my daughter<br />-->
-            <!--              <input type="checkbox" name="car" value="car" /> I own a panel van-->
-            <!--              or V8 ute<br />-->
-            <!--              <input type="checkbox" name="work" value="work" checked /> I work-->
-            <!--              full-time<br />-->
-            <!--              <input type="checkbox" name="rich" value="rich" checked /> My-->
-            <!--              parents are rich<br />-->
-            <!--              <input type="checkbox" name="loc" value="loc" checked /> Is the-->
-            <!--              date at a well lit public location<br />-->
-            <!--            </p>-->
-            <div>
-              <label id="benefits" for="age">Benefits</label>
-              <input
-                type="text"
-                required
-                name="benefits"
-                placeholder="Enter benefits here"
-              />
-            </div>
-            <div>
-              <label id="careOptions" for="age">Care Options</label>
-              <input
-                type="text"
-                required
-                name="careoptions"
-                placeholder="Enter care options here"
-              />
-            </div>
-            <div>
-              <label id="wellProgram" for="age">Well Program</label>
-              <input
-                type="text"
-                required
-                name="well program"
-                placeholder="Enter Wellness Programs here"
-              />
-            </div>
-            <div>
-              <label id="seekHelp" for="age">Seek Help</label>
-              <input
-                type="text"
-                required
-                name="seek help"
-                placeholder="Seek Help"
-              />
-            </div>
-            <div>
-              <label id="leave" for="age">Leave</label>
-              <input type="text" required name="leave" placeholder="leave" />
-            </div>
-            <div>
-              <label id="coworkers" for="age">Co Workers</label>
-              <input
-                type="text"
-                required
-                name="co workers"
-                placeholder="Co workers"
-              />
-            </div>
-            <div>
-              <label id="supervisor" for="age">Supervisor</label>
-              <input
-                type="text"
-                required
-                name="supervisor"
-                placeholder="Supervisor"
-              />
-            </div>
-          </fieldset>
-
-          <!-- -----------------Dropdown menus--------------------------------- -->
-
-          <!--          <fieldset>-->
-          <!--            <div>-->
-          <!--              <label for="politics">Political Persuasion:</label>-->
-          <!--              <select id="dropdown">-->
-          <!--                <option value="left">Left Wing</option>-->
-          <!--                <option value="right">Right Wing</option>-->
-          <!--                <option value="conservative">Conservative</option>-->
-          <!--                <option value="nazi">Nazi</option>-->
-          <!--              </select>-->
-
-          <!--              <label for="politics">Education Level Completed:</label>-->
-          <!--              <select id="dropdown2">-->
-          <!--                <option value="University">University</option>-->
-          <!--                <option value="College">College</option>-->
-          <!--                <option value="Secondary">High School</option>-->
-          <!--                <option value="None">None</option>-->
-          <!--              </select>-->
-          <!--            </div>-->
-          <!--          </fieldset>-->
-
-          <!-- --------------------Text Areas------------------------------ -->
-
-          <!--          <fieldset>-->
-          <!--            <legend>Essay Section</legend>-->
-          <!--            <div>-->
-          <!--              <label for="msg"></label>-->
-          <!--              <p>-->
-          <!--                In 50 words or more explain why you want to date my daughter-->
-          <!--              </p>-->
-          <!--              <textarea-->
-          <!--                id="msg"-->
-          <!--                name="user_message"-->
-          <!--                rows="4"-->
-          <!--                cols="50"-->
-          <!--                placeholder="Enter Text Here"-->
-          <!--              ></textarea>-->
-          <!--            </div>-->
-          <!--            <div>-->
-          <!--              <label for="msg"-->
-          <!--                >Please upload contact details for 2 references</label-->
-          <!--              ><br />-->
-          <!--              <textarea-->
-          <!--                id="msg2"-->
-          <!--                name="user_message"-->
-          <!--                rows="4"-->
-          <!--                cols="50"-->
-          <!--                placeholder="Enter Text Here"-->
-          <!--              ></textarea>-->
-          <!--            </div>-->
-          <!--            <p>-->
-          <!--              Upload Police Clearance Certificate, Bank Statement and Medical-->
-          <!--              Certifiates here: <button>Attach Files</button>-->
-          <!--            </p>-->
-          <!--          </fieldset>-->
-
-          <div id="submitbutton">
-            <button type="submit" id="submit">Submit</button>
-          </div>
-        </form>
+        <!-- Input Type Text -->
+        <select name="gender" id="gender" v-model="posts.gender">
+          <option value="0">Male</option>
+          <option value="1">Female</option>
+          <option value="2">Other</option>
+        </select>
       </div>
-    </div>
+      <div class="form-control">
+        <label id="label-country"> Country </label>
+
+        <select name="country" id="country" v-model="posts.country">
+          <option value="0">Australia</option>
+          <option value="1">Austria</option>
+          <option value="2">Bahamas</option>
+          <option value="3">Belgium</option>
+          <option value="4">Bosnia and Herzegovina</option>
+          <option value="5">Brazil</option>
+          <option value="6">Bulgaria</option>
+          <option value="7">Canada</option>
+          <option value="8">China</option>
+          <option value="9">Colombia</option>
+          <option value="10">Costa Rica</option>
+          <option value="11">Croatia</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <label for="state" id="label-state"> State </label>
+
+        <!-- Input Type Text -->
+        <select name="state" id="state">
+          <option value="0">AL</option>
+          <option value="1">AZ</option>
+          <option value="2">CA</option>
+          <option value="3">CO</option>
+          <option value="4">CT</option>
+          <option value="5">DC</option>
+          <option value="6">FL</option>
+          <option value="7">GA</option>
+          <option value="8">IA</option>
+          <option value="9">ID</option>
+          <option value="10">IL</option>
+          <option value="11">IN</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <label> Are you self-employed? </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="self-employed-1">
+          <p>
+            <input
+              type="radio"
+              id="self-employed-1"
+              name="self-employed"
+              value="1"
+            />
+            Yes
+          </p>
+        </label>
+        <label for="self-employed-2">
+          <p>
+            <input
+              type="radio"
+              id="self-employed-2"
+              name="self-employed"
+              value="0"
+            />
+            No
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label> Do you have a family history of mental illness? </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="family_history-1">
+          <p>
+            <input
+              type="radio"
+              id="family_history-1"
+              name="family_history"
+              value="1"
+              text="Yes"
+            />
+            Yes
+          </p>
+        </label>
+        <label for="family_history-2">
+          <p>
+            <input
+              type="radio"
+              id="family_history-2"
+              name="family_history"
+              value="0"
+            />
+            No
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label>
+          How many employees does your company or organization have?
+        </label>
+
+        <select name="no_employees" id="no_employees">
+          <option value="0">1-5</option>
+          <option value="4">6-25</option>
+          <option value="2">26-100</option>
+          <option value="1">100-500</option>
+          <option value="3">500-1000</option>
+          <option value="5">More than 1000</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <label>
+          Do you work remotely (outside of an office) at least 50% of the time?
+        </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="remote_work-1">
+          <p>
+            <input
+              type="radio"
+              id="remote_work-1"
+              name="remote_work"
+              value="1"
+            />
+            Yes
+          </p>
+        </label>
+        <label for="remote_work-2">
+          <p>
+            <input
+              type="radio"
+              id="remote_work-2"
+              name="remote_work"
+              value="0"
+            />
+            No
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label> Is your employer primarily a tech company/organization? </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="tech_company-1">
+          <p>
+            <input
+              type="radio"
+              id="tech_company-1"
+              name="tech_company"
+              value="1"
+            />
+            Yes
+          </p>
+        </label>
+        <label for="tech_company-2">
+          <p>
+            <input
+              type="radio"
+              id="tech_company-2"
+              name="tech_company"
+              value="0"
+            />
+            No
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label>
+          Do you know the options for mental health care your employer provides?
+        </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="care_options-1">
+          <p>
+            <input
+              type="radio"
+              id="care_options-1"
+              name="care_options"
+              value="2"
+            />
+            Yes
+          </p>
+        </label>
+        <label for="care_options-2">
+          <p>
+            <input
+              type="radio"
+              id="care_options-2"
+              name="care_options"
+              value="0"
+            />
+            No
+          </p>
+        </label>
+        <label for="care_options-3">
+          <p>
+            <input
+              type="radio"
+              id="care_options-3"
+              name="care_options"
+              value="1"
+            />
+            Maybe
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label>
+          Has your employer ever discussed mental health as part of an employee
+          wellness program?
+        </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="wellness_program-1">
+          <p>
+            <input
+              type="radio"
+              id="wellness_program-1"
+              name="wellness_program"
+              value="2"
+            />
+            Yes
+          </p>
+        </label>
+        <label for="wellness_program-2">
+          <p>
+            <input
+              type="radio"
+              id="wellness_program-2"
+              name="wellness_program"
+              value="1"
+            />
+            No
+          </p>
+        </label>
+        <label for="wellness_program-3">
+          <p>
+            <input
+              type="radio"
+              id="wellness_program-3"
+              name="wellness_program"
+              value="0"
+            />
+            Maybe
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label>
+          Does your employer provide resources to learn more about mental health
+          issues and how to seek help?
+        </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="seek_help-1">
+          <p>
+            <input type="radio" id="seek_help-1" name="seek_help" value="2" />
+            Yes
+          </p>
+        </label>
+        <label for="seek_help-2">
+          <p>
+            <input type="radio" id="seek_help-2" name="seek_help" value="1" />
+            No
+          </p>
+        </label>
+        <label for="seek_help-3">
+          <p>
+            <input type="radio" id="seek_help-3" name="seek_help" value="0" />
+            Maybe
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label>
+          How easy is it for you to take medical leave for a mental health
+          condition?
+        </label>
+
+        <select name="leave" id="leave">
+          <option value="0">Don't know</option>
+          <option value="1">Somewhat difficult</option>
+          <option value="2">Somewhat easy</option>
+          <option value="3">Very difficult</option>
+          <option value="4">Very easy</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <label>
+          Do you think that discussing a mental health issue with your employer
+          would have negative consequences?
+        </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="mental_health_consequence-1">
+          <p>
+            <input
+              type="radio"
+              id="mental_health_consequence-1"
+              name="mental_health_consequence"
+              value="2"
+            />
+            Yes
+          </p>
+        </label>
+        <label for="mental_health_consequence-2">
+          <p>
+            <input
+              type="radio"
+              id="mental_health_consequence-2"
+              name="mental_health_consequence"
+              value="1"
+            />
+            No
+          </p>
+        </label>
+        <label for="mental_health_consequence-3">
+          <p>
+            <input
+              type="radio"
+              id="mental_health_consequence-3"
+              name="mental_health_consequence"
+              value="0"
+            />
+            Maybe
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label>
+          Do you think that discussing a physical health issue with your
+          employer would have negative consequences?
+        </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="phys_health_consequence-1">
+          <p>
+            <input
+              type="radio"
+              id="phys_health_consequence-1"
+              name="phys_health_consequence"
+              value="2"
+            />
+            Yes
+          </p>
+        </label>
+        <label for="phys_health_consequence-2">
+          <p>
+            <input
+              type="radio"
+              id="phys_health_consequence-2"
+              name="phys_health_consequence"
+              value="1"
+            />
+            No
+          </p>
+        </label>
+        <label for="phys_health_consequence-3">
+          <p>
+            <input
+              type="radio"
+              id="phys_health_consequence-3"
+              name="phys_health_consequence"
+              value="0"
+            />
+            Maybe
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label>
+          Would you be willing to discuss a mental health issue with your
+          coworkers?
+        </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="coworkers-1">
+          <p>
+            <input type="radio" id="coworkers-1" name="coworkers" value="2" />
+            Yes
+          </p>
+        </label>
+        <label for="coworkers-2">
+          <p>
+            <input type="radio" id="coworkers-2" name="coworkers" value="0" />
+            No
+          </p>
+        </label>
+        <label for="coworkers-3">
+          <p>
+            <input type="radio" id="coworkers-3" name="coworkers" value="1" />
+            Some of them
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label>
+          Would you be willing to discuss a mental health issue with your direct
+          supervisor(s)?
+        </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="supervisor-1">
+          <p>
+            <input type="radio" id="supervisor-1" name="supervisor" value="2" />
+            Yes
+          </p>
+        </label>
+        <label for="supervisor-2">
+          <p>
+            <input type="radio" id="supervisor-2" name="supervisor" value="0" />
+            No
+          </p>
+        </label>
+        <label for="supervisor-3">
+          <p>
+            <input type="radio" id="supervisor-3" name="supervisor" value="1" />
+            Some of them
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label>
+          Do you feel that your employer takes mental health as seriously as
+          physical health?
+        </label>
+
+        <!-- Input Type Radio Button -->
+        <label for="mental_vs_physical-1">
+          <p>
+            <input
+              type="radio"
+              id="mental_vs_physical-1"
+              name="mental_vs_physical"
+              value="2"
+            />
+            Yes
+          </p>
+        </label>
+        <label for="mental_vs_physical-2">
+          <p>
+            <input
+              type="radio"
+              id="mental_vs_physical-2"
+              name="mental_vs_physical"
+              value="1"
+            />
+            No
+          </p>
+        </label>
+        <label for="mental_vs_physical-3">
+          <p>
+            <input
+              type="radio"
+              id="mental_vs_physical-3"
+              name="mental_vs_physical"
+              value="0"
+            />
+            Don't know
+          </p>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label> Age </label>
+
+        <select name="age_range" id="age_range">
+          <option value="0">0-20</option>
+          <option value="1">21-30</option>
+          <option value="2">31-40</option>
+          <option value="3">41-50</option>
+          <option value="4">51-70</option>
+          <option value="5">71-100</option>
+        </select>
+      </div>
+
+      <button class="input-button" type="submit">Submit</button>
+    </form>
   </div>
-
-  <!--  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>-->
-  <!-- head - Googlefonts link -->
-
-  <!-- https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation -->
 </template>

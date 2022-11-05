@@ -1,148 +1,80 @@
-<script setup lang="ts">
-import HeaderDropdown from "@/components/HeaderDropdown.vue";
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
-header {
-  display: flex;
-  background-color: black;
-  align-items: center;
-  justify-content: space-between;
+.container {
+  max-width: 1640px;
 }
 
-.text-logo {
-  font-size: 45px;
-  font-family: var(--title-font-family);
-}
-
-.bookstore-logo {
-  display: inline-flex;
-  align-items: center;
-  font-size: 20px;
-  font-style: var(--title-font-family);
-}
-
-.bookstore-logo a {
-  margin-right: 10px;
-}
-
-.searchbar {
-  min-width: 250px;
-  width: 350px;
-  height: 50px;
-  border-radius: 30px;
-  background-color: #ff8a00;
-  display: flex;
-  align-self: center;
-  align-items: center;
-  padding: 10px;
-  position: center;
-  justify-content: center;
-}
-
-.searchbar > i {
-  font-size: 25px;
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
   color: black;
-  font-display: var(--default-text-color);
+}
+.nav-item {
+  position: relative;
+  padding: 30px;
 }
 
-.searchbar input {
-  flex: 1;
-  margin-left: 10px;
-  font-size: 20px;
-  border: none;
-  outline: none;
-  height: 40px;
+.header_section {
+  width: 100%;
+  float: left;
+  /*   background-image: url(../images/header-bg.png);*/
+  background: white;
+  height: auto;
+  background-size: 100%;
 }
-
-.searchbar input::placeholder {
-  font-size: 25px;
-  font-weight: bolder;
-  color: #111111;
+.bg-light {
+  background-color: transparent !important;
 }
-
-.image {
-  min-width: 100px;
-}
-
 .logo {
-  margin-left: 10px;
-  height: 60px;
-}
-
-.logo-image {
-  border: 2px solid #ffa500;
-}
-
-.cart-profile-category {
-  display: inline-flex;
-}
-
-.cart {
-  min-width: 60px;
-  min-height: 50px;
-  cursor: pointer;
-}
-
-.shop-cart p {
-  color: black;
-  font-size: 15px;
-  font-weight: bolder;
-  position: absolute;
-  top: 3px;
-  left: 20px;
-}
-
-.cart i {
-  margin: 10px;
-  color: #ff8a00;
-  font-size: 40px;
-  position: absolute;
-}
-
-.profile {
-  width: 50px;
-  height: 50px;
-  background-color: #ff8a00;
-  align-content: center;
-  border-radius: 30px;
-  margin-left: 25px;
-  font-size: 20px;
-  text-align: center;
-  cursor: pointer;
-}
-
-.profile > p {
-  margin: 10px;
+  width: 25%;
+  float: left;
 }
 </style>
 
 <template>
   <header class="container">
-    <section class="bookstore-logo">
-      <router-link class="image" to="/">
-        <img
-          class="logo-image logo"
-          src="../assets/images/site/logo.png"
-          alt="OG Bookstore Logo"
-        />
-      </router-link>
-      <router-link to="/">
-        <div class="text-logo" alt="OG Bookstore Logo">Vikara</div>
-      </router-link>
-    </section>
-    <section class="title-and-search-bar">
-      <div class="searchbar">
-        <i class="fa fa-search" aria-hidden="true"></i>
-        <input type="text" placeholder="Search" />
+    <div class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="logo">
+            <router-link to="/"
+              ><img
+                class="logo-img"
+                src="../assets/images/vikara/vikara-logo.png"
+            /></router-link>
+          </div>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <router-link class="nav-link" to="/login">Helpline</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/itemCategory/Insomnia"
+                  >Products</router-link
+                >
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/aboutus">About</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/login">Login</router-link>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
-    </section>
-    <section class="cart-profile-category">
-      <div class="cart">
-        <i class="fa-solid fa-cart-shopping shop-cart"><p>2</p></i>
-      </div>
-      <div class="profile"><p>HV</p></div>
-      <header-dropdown></header-dropdown>
-    </section>
+    </div>
   </header>
 </template>
