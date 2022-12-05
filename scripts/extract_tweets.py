@@ -26,10 +26,10 @@ def get_tweets(hashtags, tweet_text):
     print("Collected tweets!!")
 
 if __name__ == '__main__':
-    access_token = "1485395819700404229-NZEkwdqLsfUXlAXxgSS18o0Ne3ZtIv"
-    access_token_secret = "l1TQjKDz6fmQS8tQ2985vYvimYIEme3l6XZx8zFU8LSIT"
-    consumer_key = "J6t9sNlYpl4jf7UBwpQlYPqcE"
-    consumer_secret = "k5OmdaoEMwX41WPuoYnooTZ7yOYzHAnHXyXhpeecYKuRd6eZ0E"
+    access_token = ""
+    access_token_secret = ""
+    consumer_key = ""
+    consumer_secret = ""
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
