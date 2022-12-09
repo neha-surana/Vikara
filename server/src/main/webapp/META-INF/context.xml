@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/">
+    <Resource name="jdbc/vikara"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxTotal="4"
+              maxIdle="0"
+              maxWaitMillis="10000"
+              username="root"
+              password="root"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              removeAbandonedOnBorrow="true"
+              removeAbandonedOnMaintenance="true"
+              removeAbandonedTimeout="60"
+              logAbandoned="true"
+              minEvictableIdleTimeMillis="300000"
+              timeBetweenEvictionRunsMillis="300000"
+              url="jdbc:mysql://localhost:3306/vikara"/>
+</Context>
